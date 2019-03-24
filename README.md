@@ -17,6 +17,11 @@ use it at this URL: https://xaeroxe.github.io/FeatherPasswordManager/index.html
 - Manually edit passwords if the random generator doesn't quite get it right
 - No backend server required, just open the index.html file and get started.
 
+## Screenshot
+
+![Screenshot](Demo.png)
+
+
 ## Philosophy and objectives
 - Stay under 100 MB
 - Work correctly in as many browsers and on as many devices as possible
