@@ -3,7 +3,7 @@
 This is a highly portable extremely light-weight password manager that stores
 all your passwords in a local encrypted file.
 
-You can use this either by cloning the repo and opening index.html, or you can
+You can use this either by downloading the latest [release](https://github.com/Xaeroxe/FeatherPasswordManager/releases) and opening index.html, or you can
 use it at this URL: https://xaeroxe.github.io/FeatherPasswordManager/index.html
 
 ## Features
