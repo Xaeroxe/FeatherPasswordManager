@@ -104,7 +104,7 @@
         document.execCommand('copy');
         this.value = 'Copied!';
         let button = this;
-        setTimeout(() => {
+        setTimeout(function() {
           button.value = 'Copy To Clipboard';
         }, 3000);
       };
