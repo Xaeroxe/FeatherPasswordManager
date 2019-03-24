@@ -287,18 +287,21 @@
     let output = document.getElementById("lengthOutput");
     output.innerHTML = slider.value;
 
-    slider.oninput = function() {
+    let sliderHandler = function() {
       output.innerHTML = this.value;
       genPassword();
     }
+
+    slider.oninput = sliderHandler;
+    slider.addEventListener('change', sliderHandler);
 
     let caps = document.getElementById("capsCheckbox");
     let digits = document.getElementById("digitsCheckbox");
     let special = document.getElementById("specialCharactersCheckbox");
     let saveButton = document.getElementById("saveButton");
-    caps.oninput = genPassword;
-    digits.oninput = genPassword;
-    special.oninput = genPassword;
+    caps.onclick = genPassword;
+    digits.onclick = genPassword;
+    special.onclick = genPassword;
     genPassword();
     saveButton.onclick = function() {
       addPassword(document.getElementById('serviceInput').value, document.getElementById('newPasswordOutput').innerText);
