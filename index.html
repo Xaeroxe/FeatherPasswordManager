@@ -5,10 +5,10 @@
 <body>
   <h3>Load password file</h3>
   <span>Password file</span>
-  <input type="file" id="passwordFile">
+  <input type="file" id="passwordFile" autocomplete="off">
   <br />
   <span>Manager Password</span>
-  <input type="password" id="managerPassword">
+  <input type="password" id="managerPassword" autocomplete="off">
   <br />
   <input type="button" value="Load file..." onclick="load();">
   <br />
@@ -17,10 +17,10 @@
   <br />
   <h3>Add new password</h3>
   <span>Service Name</span>
-  <input type="text" id="serviceInput">
+  <input type="text" id="serviceInput" autocomplete="off">
   <p id="newPasswordOutput"></p>
   <span>Length</span>
-  <input id="length" type="range" min="4" max="100" value="24">
+  <input id="length" type="range" min="8" max="100" value="24">
   <span id="lengthOutput"></span>
   <br />
   <br />
@@ -61,16 +61,16 @@
 
     function addHeaders() {
       let passwordOutput = document.getElementById('passwordOutput');
-      passwordOutput.innerHTML = '';
+      passwordOutput.textContent = '';
       let headers = document.createElement('tr');
       let serviceHeaderCell = document.createElement('th');
       let passwordHeaderCell = document.createElement('th');
       let copyHeaderCell = document.createElement('th');
       let deleteHeaderCell = document.createElement('th');
-      serviceHeaderCell.innerText = 'Service';
-      passwordHeaderCell.innerText = 'Password';
-      copyHeaderCell.innerText = 'Copy To Clipboard';
-      deleteHeaderCell.innerText = 'Remove Password';
+      serviceHeaderCell.textContent = 'Service';
+      passwordHeaderCell.textContent = 'Password';
+      copyHeaderCell.textContent = 'Copy To Clipboard';
+      deleteHeaderCell.textContent = 'Remove Password';
       headers.appendChild(serviceHeaderCell);
       headers.appendChild(passwordHeaderCell);
       headers.appendChild(copyHeaderCell);
@@ -79,18 +79,20 @@
     }
 
     function addPassword(service, password) {
-      if (document.getElementById('passwordOutput').innerHTML === '') {
+      if (document.getElementById('passwordOutput').textContent === '') {
         addHeaders();
       }
       let row = document.createElement('tr');
       let labelCell = document.createElement('td');
       let label = document.createElement('input');
       label.value = service;
+      label.setAttribute('autocomplete', 'off');
       labelCell.appendChild(label);
       row.appendChild(labelCell);
       let passwordCell = document.createElement('td');
       let passwordValue = document.createElement('input');
       passwordValue.value = password;
+      passwordValue.setAttribute('autocomplete', 'off');
       passwordCell.appendChild(passwordValue);
       row.appendChild(passwordCell);
       let copyButtonCell = document.createElement('td');
@@ -137,7 +139,7 @@
             alert("Error reading file " + err.message);
           }
           let keys = Object.keys(fileInput);
-          document.getElementById('passwordOutput').innerHTML = '';
+          document.getElementById('passwordOutput').textContent = '';
           for(let i = 0; i < keys.length; i++) {
             addPassword(keys[i], fileInput[keys[i]]);
           }
@@ -150,9 +152,12 @@
     }
 
     function getRandomInt(min, max) {
+      let randomBuffer = new Uint32Array(1);
+      window.crypto.getRandomValues(randomBuffer);
+      let randomNumber = randomBuffer[0] / (0xffffffff + 1);
       min = Math.ceil(min);
       max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min + 1)) + min;
+      return Math.floor(randomNumber * (max - min + 1)) + min;
     }
 
     function genPassword() {
@@ -280,15 +285,15 @@
             break;
         }
       }
-      document.getElementById('newPasswordOutput').innerHTML = password;
+      document.getElementById('newPasswordOutput').textContent = password;
     }
 
     let slider = document.getElementById("length");
     let output = document.getElementById("lengthOutput");
-    output.innerHTML = slider.value;
+    output.textContent = slider.value;
 
     let sliderHandler = function() {
-      output.innerHTML = this.value;
+      output.textContent = this.value;
       genPassword();
     }
 
@@ -304,7 +309,7 @@
     special.onclick = genPassword;
     genPassword();
     saveButton.onclick = function() {
-      addPassword(document.getElementById('serviceInput').value, document.getElementById('newPasswordOutput').innerText);
+      addPassword(document.getElementById('serviceInput').value, document.getElementById('newPasswordOutput').textContent);
 	  document.getElementById('serviceInput').value = '';
       genPassword();
     }
