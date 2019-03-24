@@ -11,7 +11,7 @@
   <br />
   <br />
   <span>Manager Password</span>
-  <input type="password" id="managerPassword" autocomplete="off">
+  <input type="password" id="managerPassword" size="40" autocomplete="off">
   <br />
   <input type="button" value="Load file..." onclick="load();">
   <br />
@@ -20,7 +20,7 @@
   <br />
   <h2>Add new password</h2>
   <span>Service Name</span>
-  <input type="text" id="serviceInput" autocomplete="off">
+  <input type="text" id="serviceInput" size="30" autocomplete="off">
   <p id="newPasswordOutput"></p>
   <span>Length</span>
   <input id="length" type="range" min="8" max="100" value="24">
@@ -91,6 +91,7 @@
       let label = document.createElement('input');
       label.value = service;
       label.type = 'text';
+      label.size = 30;
       label.setAttribute('autocomplete', 'off');
       labelCell.appendChild(label);
       row.appendChild(labelCell);
@@ -98,6 +99,7 @@
       let passwordValue = document.createElement('input');
       passwordValue.value = password;
       passwordValue.type = 'text';
+      passwordValue.size = 50;
       passwordValue.setAttribute('autocomplete', 'off');
       passwordCell.appendChild(passwordValue);
       row.appendChild(passwordCell);

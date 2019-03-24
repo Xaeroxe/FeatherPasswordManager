@@ -23,7 +23,7 @@ use it at this URL: https://xaeroxe.github.io/FeatherPasswordManager/index.html
 
 
 ## Philosophy and objectives
-- Stay under 100 MB
+- Stay under 200 KB
 - Work correctly in as many browsers and on as many devices as possible
 - Extremely responsive, no waiting around
 - High security encryption algorithm (AES)
