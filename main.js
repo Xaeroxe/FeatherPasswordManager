@@ -55,6 +55,7 @@ function addPassword(service, password) {
   let passwordValue = document.createElement('input');
   passwordValue.value = password;
   passwordValue.type = 'text';
+  passwordValue.setAttribute('class', 'monospace');
   passwordValue.size = 50;
   passwordValue.setAttribute('autocomplete', 'off');
   passwordCell.appendChild(passwordValue);

@@ -27,3 +27,7 @@ input[type=button] {
   color: #eee;
   margin: 0.5em;
 }
+
+.monospace {
+  font-family: monospace;
+}
