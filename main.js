@@ -39,6 +39,17 @@ function addHeaders() {
 }
 
 function addPassword(service, password) {
+  let rows = document.getElementById('passwordOutput').childNodes;
+  for(var i = 1; i < rows.length; i++) {
+    let row = rows[i];
+    let oldService = row.childNodes[0].childNodes[0].value;
+    if(oldService === service) {
+      if(confirm(service + " already has a password set, press OK to replace the password for it, otherwise press Cancel.")) {
+        row.childNodes[1].childNodes[0].value = password;
+      }
+      return;
+    }
+  }
   if (document.getElementById('passwordOutput').textContent === '') {
     addHeaders();
   }
@@ -108,6 +119,7 @@ function load() {
         alert("Either an incorrect password was provided, or the file given is not a valid password file.");
       }
       let keys = Object.keys(fileInput);
+      keys.sort();
       document.getElementById('passwordOutput').textContent = '';
       for(let i = 0; i < keys.length; i++) {
         addPassword(keys[i], fileInput[keys[i]]);
