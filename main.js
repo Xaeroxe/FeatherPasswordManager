@@ -20,6 +20,7 @@ function downloadPasswords() {
 
 function addHeaders() {
   document.getElementById('downloadButton').removeAttribute('hidden');
+  document.getElementById('hrHidden').removeAttribute('hidden');
   let passwordOutput = document.getElementById('passwordOutput');
   passwordOutput.textContent = '';
   let headers = document.createElement('tr');
@@ -49,6 +50,9 @@ function addPassword(service, password) {
   label.type = 'text';
   label.size = 30;
   label.setAttribute('autocomplete', 'off');
+  label.className = 'form-control';
+  label.setAttribute('readonly', 'true');
+  label.setAttribute('placeholder', 'Read-Only');
   labelCell.appendChild(label);
   row.appendChild(labelCell);
   let passwordCell = document.createElement('td');
@@ -59,11 +63,13 @@ function addPassword(service, password) {
   passwordValue.size = 50;
   passwordValue.setAttribute('autocomplete', 'off');
   passwordCell.appendChild(passwordValue);
+  passwordValue.className = 'form-control';
   row.appendChild(passwordCell);
   let copyButtonCell = document.createElement('td');
   let copyButton = document.createElement('input');
   copyButton.type = 'button';
   copyButton.value = 'Copy To Clipboard';
+  copyButton.className = 'btn btn-primary';
   copyButton.onclick = function() {
     let passField = this.parentElement.parentElement.childNodes[1].childNodes[0];
     passField.focus();
@@ -81,12 +87,15 @@ function addPassword(service, password) {
   let deleteButton = document.createElement('input');
   deleteButton.type = 'button';
   deleteButton.value = 'Remove Password';
+  deleteButton.className = 'btn btn-danger';
   deleteButton.onclick = function() {
     let deletedRow = this.parentElement.parentElement;
     deletedRow.parentElement.removeChild(deletedRow);
     if(document.getElementById('passwordOutput').childNodes.length == 1) {
       document.getElementById('passwordOutput').textContent = '';
       document.getElementById('downloadButton').setAttribute('hidden', '');
+      
+      downloadButton.className = 'btn btn-success';
     }
   };
   deleteButtonCell.appendChild(deleteButton);

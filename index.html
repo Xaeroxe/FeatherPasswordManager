@@ -1,46 +1,69 @@
-<html>
-<head>
-  <title>Feather Passwords</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-  <h1>Feather Password Manager</h1>
-  <h2>Load password file</h2>
-  <span>Password file</span>
-  <input type="file" id="passwordFile" autocomplete="off">
-  <br />
-  <br />
-  <span>Manager Password</span>
-  <input type="password" id="managerPassword" size="40" autocomplete="off">
-  <br />
-  <input type="button" value="Load file..." onclick="load();">
-  <br />
-  <table id="passwordOutput"></table>
-  <input id="downloadButton" hidden type="button" value="Download current file" onclick="downloadPasswords();">
-  <br />
-  <h2>Add new password</h2>
-  <span>Service Name</span>
-  <input type="text" id="serviceInput" size="30" autocomplete="off">
-  <p id="newPasswordOutput"></p>
-  <span>Length</span>
-  <input id="length" type="range" min="8" max="100" value="24">
-  <span id="lengthOutput"></span>
-  <br />
-  <br />
-  <input id="capsCheckbox" type="checkbox" checked>
-  <span>Include uppercase letters</span>
-  <br />
-  <input id="digitsCheckbox" type="checkbox" checked>
-  <span>Include digits</span>
-  <br />
-  <input id="specialCharactersCheckbox" type="checkbox">
-  <span>Include special characters</span>
-  <br />
-  <br />
-  <input id="saveButton" type="button" value="Save Password">
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Feather Passwords</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   
 
-  <script src="aes.js"></script>
-  <script src="download.js"></script>
-  <script src="main.js"></script>
-</body>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+
+<nav class="navbar navbar-expand-sm navbar-dark" style="background-color:black;">
+    <a class="navbar-brand" href="#">Feather Password Manager</a>
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+        aria-expanded="false" aria-label="Toggle navigation"></button>
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+    </div>
+</nav>
+<br> 
+<br>
+<div class="container">
+  <br>
+    <h5>Load password file</h5>
+    <hr>
+<input type="file" class="form-control-file flex-nowrap" id="passwordFile" autocomplete="off">
+    
+<input type="password" id="managerPassword" class="form-control" size="40" autocomplete="off" placeholder="Manager Password - Either set when downloading or opening the file containing the password.">
+
+    <input type="button" class="btn btn-info" value="Load file..." onclick="load();">
+    <hr id="hrHidden" hidden>
+    <table id="passwordOutput"></table>
+    <input id="downloadButton" class="btn btn-success" hidden type="button" value="Download current file" onclick="downloadPasswords();">
+<br>
+    <h5>Add new password</h5>
+    <hr>
+    <span></span>
+    <input type="text" id="serviceInput" class="form-control" size="30" autocomplete="off"  placeholder="Service Name - ie: Skype, Outlook, Facebook etc.. ">
+    <p id="newPasswordOutput"></p>
+    <span>Length:<b id="lengthOutput"> </b> </span>
+    <input id="length" type="range" class="custom-range" min="8" max="100" value="24">
+    
+
+    <input id="capsCheckbox" type="checkbox" checked>
+    <span>Include uppercase letters</span>
+
+    <input id="digitsCheckbox" type="checkbox" checked>
+    <span>Include digits</span>
+
+    <input id="specialCharactersCheckbox" type="checkbox">
+    <span>Include special characters</span>
+
+
+    <input id="saveButton" class="btn btn-success bx-shadow" type="button" value="Save Password" >
+  
+    <script src="aes.js"></script>
+    <script src="download.js"></script>
+    <script src="main.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </div>
+  </body>
 </html>
