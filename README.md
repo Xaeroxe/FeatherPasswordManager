@@ -2,7 +2,21 @@
 ***
 ###### This Is Forked Version of Xaeroxe's Feather Password Manager
 ###### This version is maintained by Yeehawlerz101.
+## Todo:
 
+- [ ] Change/tweak responsiveness to allow Taller skinnier phones.
+
+- [ ] Fix IE not likeing :Hover.
+
+- [ ]  Change Placeholder attribute to not read-only.
+
+- [ ] "Skin" bootstrap to only get the classes/styles needed.
+
+- [ ] Re minify HTML & CSS.
+
+- [ ]  Solution for hotlinking?
+###### Todo from https://github.com/Xaeroxe/FeatherPasswordManager/pull/2
+***
 
 This is a highly portable extremely light-weight password manager that stores
 all your passwords in a local encrypted file.

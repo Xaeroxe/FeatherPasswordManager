@@ -52,7 +52,6 @@ function addPassword(service, password) {
   label.setAttribute('autocomplete', 'off');
   label.className = 'form-control';
   label.setAttribute('readonly', 'true');
-  label.setAttribute('placeholder', 'Read-Only');
   labelCell.appendChild(label);
   row.appendChild(labelCell);
   let passwordCell = document.createElement('td');
