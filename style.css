@@ -3,27 +3,31 @@
 }
 
 body {
-  background: #222;
-  margin: 2%;
+  background: rgb(20, 20, 20);
+  min-width: 60em; /*Support for smaller device that are skinny and tall. Keep me updated if this isnt enough.*/
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, p {
   color: #fff;
-  font-weight: bold;
 }
-
-p, span, input[type=file], th {
+h1, h2, h3, h4, h5, h6{font-family: Georgia, 'Times New Roman', Times, serif}
+p, span, input, th {
   color: #ccc;
   margin: 0.5em;
 }
-
+input[type=file]{
+  margin: 0em;
+  margin: auto;
+  border:auto;
+  padding: auto;
+}
 input[type=text], input[type=password] {
-  background-color: #111;
+  background-color: rgb(0, 0, 0);
   color: #eee;
 }
 
 input[type=button] {
-  background-color: #111;
+  background-color: rgb(0, 0, 0);
   color: #eee;
   margin: 0.5em;
 }
@@ -31,3 +35,34 @@ input[type=button] {
 .monospace {
   font-family: monospace;
 }
+
+.btn{color: white}
+
+
+
+
+.bx-shadow{
+  box-shadow: 0 0 20px 0.2rem inherit;}
+.container{background-color:black;transition: 0.5s;box-shadow: 0px 0px 0px rgb(0, 0, 0);}
+.container:hover{transition: 0.5s;box-shadow: 5px 5px 8px rgb(14, 14, 14);}
+hr {background-color: white;padding-bottom: 2px;}
+.th {text-align: center;}
+.form-control, .form-control:active, .form-control:hover,.form-control:focus{background-color: black;border-color: rgb(37, 37, 37);color: white;}
+p { white-space: 500px;}
+#passwordOutput > tr:nth-child(1){text-align: center; }
+.form-control, .form-control:hover {
+  filter: none;
+  background: inherit !important;
+}
+.toast {    position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border: 1px solid black;}
+.FeatherSVG{background-color: rgb(66, 66, 66);}
+.FeatherSVG-Danger{background-color: #dc3545}
+.FeatherSVG-Success{background-color: #28a745}
+.FeatherSVG-General{background-color: #007bff}
+.FeatherSVG-Info{background-color: #17a2b8}
+.exit-Toast{color: rgb(134, 0, 0)}

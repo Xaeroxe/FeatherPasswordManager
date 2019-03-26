@@ -20,6 +20,7 @@ function downloadPasswords() {
 
 function addHeaders() {
   document.getElementById('downloadButton').removeAttribute('hidden');
+  document.getElementById('hrHidden').removeAttribute('hidden');
   let passwordOutput = document.getElementById('passwordOutput');
   passwordOutput.textContent = '';
   let headers = document.createElement('tr');
@@ -60,6 +61,7 @@ function addPassword(service, password) {
   label.type = 'text';
   label.size = 30;
   label.setAttribute('autocomplete', 'off');
+  label.className = 'form-control';
   labelCell.appendChild(label);
   row.appendChild(labelCell);
   let passwordCell = document.createElement('td');
@@ -70,34 +72,40 @@ function addPassword(service, password) {
   passwordValue.size = 50;
   passwordValue.setAttribute('autocomplete', 'off');
   passwordCell.appendChild(passwordValue);
+  passwordValue.className = 'form-control monospace';
   row.appendChild(passwordCell);
   let copyButtonCell = document.createElement('td');
-  let copyButton = document.createElement('input');
+  let copyButton = document.createElement('button');
   copyButton.type = 'button';
-  copyButton.value = 'Copy To Clipboard';
+  copyButton.className = 'btn btn-outline-primary';
+  copyButton.innerHTML = '<img src="clipboard.svg" alt="">';
+  copyButton.id = 'copyButton';
   copyButton.onclick = function() {
     let passField = this.parentElement.parentElement.childNodes[1].childNodes[0];
     passField.focus();
     passField.select();
     document.execCommand('copy');
-    this.value = 'Copied!';
+    this.innerHTML = 'Copied!';
     let button = this;
     setTimeout(function() {
-      button.value = 'Copy To Clipboard';
+      button.innerHTML = '<img src="clipboard.svg" alt="">';
     }, 3000);
   };
   copyButtonCell.appendChild(copyButton);
   row.appendChild(copyButtonCell);
   let deleteButtonCell = document.createElement('td');
-  let deleteButton = document.createElement('input');
+  let deleteButton = document.createElement('button');
   deleteButton.type = 'button';
-  deleteButton.value = 'Remove Password';
+  deleteButton.innerHTML = '<img src="x-circle.svg" alt="">';
+  deleteButton.className = 'btn btn-outline-danger';
+  deleteButton.id = 'deleteButton';
   deleteButton.onclick = function() {
     let deletedRow = this.parentElement.parentElement;
     deletedRow.parentElement.removeChild(deletedRow);
     if(document.getElementById('passwordOutput').childNodes.length == 1) {
       document.getElementById('passwordOutput').textContent = '';
       document.getElementById('downloadButton').setAttribute('hidden', '');
+      downloadButton.className = 'btn btn-outline-success';
     }
   };
   deleteButtonCell.appendChild(deleteButton);
