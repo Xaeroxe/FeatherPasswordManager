@@ -2,28 +2,8 @@
 ***
 ###### This Is Forked Version of Xaeroxe's Feather Password Manager
 ###### This version is maintained by Yeehawlerz101.
-#### Changes
-* Made input boxes slightly lighter ato be easier to find on mobile devices that have low brightness
-* Brought compatability to IE 11
-* Chrome should turn dark when viewing the webpage (thanks to the "<meta name="theme-color" content="#000">").
-
-***
-## Todo:
-
-- [X] Change/tweak responsiveness to allow Taller skinnier phones.
-
-- [X] Fix IE not likeing :Hover.
-
-- [X]  Change Placeholder attribute to not read-only.
-
-- [ ] "Skin" bootstrap to only get the classes/styles needed.
-
-- [ ] Re minify HTML & CSS.
-
-- [ ]  Solution for hotlinking? Place css in html?
 ###### Currently only IE 11 is supported. 
 
-###### Todo from https://github.com/Xaeroxe/FeatherPasswordManager/pull/2
 ***
 
 This is a highly portable extremely light-weight password manager that stores

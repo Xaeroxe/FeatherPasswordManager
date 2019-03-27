@@ -61,7 +61,7 @@ function addPassword(service, password) {
   passwordValue.size = 50;
   passwordValue.setAttribute('autocomplete', 'off');
   passwordCell.appendChild(passwordValue);
-  passwordValue.className = 'form-control';
+  passwordValue.className = 'form-control monospace';
   row.appendChild(passwordCell);
   let copyButtonCell = document.createElement('td');
   let copyButton = document.createElement('input');
