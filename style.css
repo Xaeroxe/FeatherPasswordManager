@@ -4,17 +4,23 @@
 
 body {
   background: rgb(20, 20, 20);
+  min-width: 150px; /*Support for smaller device that are skinny and tall. Keep me updated if this isnt enough.*/
 }
 
 h1, h2, h3, h4, h5, h6, p {
   color: #fff;
 }
 h1, h2, h3, h4, h5, h6{font-family: Georgia, 'Times New Roman', Times, serif}
-p, span, input[type=file], th {
+p, span, input, th {
   color: #ccc;
   margin: 0.5em;
 }
-
+input[type=file]{
+  margin: 0em;
+  margin: auto;
+  border:auto;
+  padding: auto;
+}
 input[type=text], input[type=password] {
   background-color: rgb(0, 0, 0);
   color: #eee;
@@ -36,9 +42,10 @@ input[type=button] {
 .container:hover{transition: 0.5s;box-shadow: 5px 5px 8px rgb(14, 14, 14);}
 hr {background-color: white;padding-bottom: 2px;}
 .th {text-align: center;}
-.form-control, .form-control:active, .form-control:hover,.form-control:focus{background-color: black;border-color: rgb(14, 14, 14);color: white;}
+.form-control, .form-control:active, .form-control:hover,.form-control:focus{background-color: black;border-color: rgb(37, 37, 37);color: white;}
 p { white-space: 500px;}
 #passwordOutput > tr:nth-child(1){text-align: center; }
-.form-control[readonly] {
-  background-color: inherit;
+.form-control, .form-control:hover {
+  filter: none;
+  background: inherit !important;
 }
