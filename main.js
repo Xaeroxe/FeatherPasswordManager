@@ -64,28 +64,29 @@ function addPassword(service, password) {
   passwordValue.className = 'form-control monospace';
   row.appendChild(passwordCell);
   let copyButtonCell = document.createElement('td');
-  let copyButton = document.createElement('input');
+  let copyButton = document.createElement('button');
   copyButton.type = 'button';
   copyButton.value = 'Copy To Clipboard';
-  copyButton.className = 'btn btn-primary';
+  copyButton.className = 'btn btn-outline-primary';
+  copyButton.innerHTML = 'Copy To Clipboard  <img src="clipboard.svg" alt="">';
   copyButton.onclick = function() {
     let passField = this.parentElement.parentElement.childNodes[1].childNodes[0];
     passField.focus();
     passField.select();
     document.execCommand('copy');
-    this.value = 'Copied!';
+    this.innerHTML = 'Copied!';
     let button = this;
     setTimeout(function() {
-      button.value = 'Copy To Clipboard';
+      button.innerHTML = 'Copy To Clipboard  <img src="clipboard.svg" alt="">';
     }, 3000);
   };
   copyButtonCell.appendChild(copyButton);
   row.appendChild(copyButtonCell);
   let deleteButtonCell = document.createElement('td');
-  let deleteButton = document.createElement('input');
+  let deleteButton = document.createElement('button');
   deleteButton.type = 'button';
-  deleteButton.value = 'Remove Password';
-  deleteButton.className = 'btn btn-danger';
+  deleteButton.innerHTML = 'Remove Password <img src="x-circle.svg" alt="">';
+  deleteButton.className = 'btn btn-outline-danger';
   deleteButton.onclick = function() {
     let deletedRow = this.parentElement.parentElement;
     deletedRow.parentElement.removeChild(deletedRow);

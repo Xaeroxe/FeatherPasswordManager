@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="feather.svg" type="image/x-icon">
    <meta name="theme-color" content="#000">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -13,7 +14,7 @@
   </head>
   <body>
 <nav class="navbar navbar-expand-sm navbar-dark" style="background-color:#000;">
-    <a class="navbar-brand" href="#">Feather Password Manager</a> <!-- I was thinking about adding a basic Feather icon from "FeatherIcons.com" for buttons and the navbar. but at the same time we could just remove the navbar and add it to the main content card. -->
+    <a class="navbar-brand" href="#"> <img src="feather.svg" class="FeatherSVG" alt="Feather SVG"> Feather Password Manager</a> <!-- I was thinking about adding a basic Feather icon from "FeatherIcons.com" for buttons and the navbar. but at the same time we could just remove the navbar and add it to the main content card. -->
     <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
         aria-expanded="false" aria-label="Toggle navigation"></button>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
@@ -29,10 +30,10 @@
     
 <input type="password" id="managerPassword" class="form-control" size="40" autocomplete="off" placeholder="Manager Password - Either set when downloading or opening the file containing the password.">
 
-    <input type="button" class="btn btn-info" value="Load file..." onclick="load();">
+    <button type="button" class="btn btn-outline-info" value="Load file..." onclick="load();">Load file <img src="upload.svg" alt=""> </button>
     <hr id="hrHidden" hidden>
     <table id="passwordOutput"></table>
-    <input id="downloadButton" class="btn btn-success" hidden type="button" value="Download current file" onclick="downloadPasswords();">
+    <button id="downloadButton" class="btn btn-outline-success" hidden type="button" value="Download current file" onclick="downloadPasswords();">Download current file <img src="download.svg" alt=""></button>
 <br>
     <h5>Add new password</h5>
     <hr>
@@ -51,9 +52,9 @@
 
     <input id="specialCharactersCheckbox" type="checkbox">
     <span>Include special characters</span>
-
-    <input id="saveButton" class="btn btn-success" type="button" value="Save Password" >
-  
+<p>
+    <button id="saveButton" class="btn btn-outline-success" type="button" value="Save Password" >Save Password</button>
+  </p>
     <script src="aes.js"></script>
     <script src="download.js"></script>
     <script src="main.js"></script>

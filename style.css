@@ -36,7 +36,7 @@ input[type=button] {
   font-family: monospace;
 }
 
-
+.btn{color: white}
 
 
 
@@ -54,3 +54,4 @@ p { white-space: 500px;}
   filter: none;
   background: inherit !important;
 }
+.FeatherSVG{background-color: rgb(66, 66, 66);border-radius: 5px;}
