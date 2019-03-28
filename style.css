@@ -54,4 +54,8 @@ p { white-space: 500px;}
   filter: none;
   background: inherit !important;
 }
-.FeatherSVG{background-color: rgb(66, 66, 66);border-radius: 5px;}
+.FeatherSVG{background-color: rgb(66, 66, 66);}
+.FeatherSVG-Danger{background-color: #dc3545}
+.FeatherSVG-Success{background-color: #28a745}
+.FeatherSVG-General{background-color: #007bff}
+.FeatherSVG-Info{background-color: #17a2b8}

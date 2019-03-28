@@ -66,9 +66,8 @@ function addPassword(service, password) {
   let copyButtonCell = document.createElement('td');
   let copyButton = document.createElement('button');
   copyButton.type = 'button';
-  copyButton.value = 'Copy To Clipboard';
   copyButton.className = 'btn btn-outline-primary';
-  copyButton.innerHTML = 'Copy To Clipboard  <img src="clipboard.svg" alt="">';
+  copyButton.innerHTML = '<img src="clipboard.svg" alt="">';
   copyButton.onclick = function() {
     let passField = this.parentElement.parentElement.childNodes[1].childNodes[0];
     passField.focus();
@@ -77,7 +76,7 @@ function addPassword(service, password) {
     this.innerHTML = 'Copied!';
     let button = this;
     setTimeout(function() {
-      button.innerHTML = 'Copy To Clipboard  <img src="clipboard.svg" alt="">';
+      button.innerHTML = '<img src="clipboard.svg" alt="">';
     }, 3000);
   };
   copyButtonCell.appendChild(copyButton);
@@ -85,7 +84,7 @@ function addPassword(service, password) {
   let deleteButtonCell = document.createElement('td');
   let deleteButton = document.createElement('button');
   deleteButton.type = 'button';
-  deleteButton.innerHTML = 'Remove Password <img src="x-circle.svg" alt="">';
+  deleteButton.innerHTML = '<img src="x-circle.svg" alt="">';
   deleteButton.className = 'btn btn-outline-danger';
   deleteButton.onclick = function() {
     let deletedRow = this.parentElement.parentElement;
@@ -93,8 +92,8 @@ function addPassword(service, password) {
     if(document.getElementById('passwordOutput').childNodes.length == 1) {
       document.getElementById('passwordOutput').textContent = '';
       document.getElementById('downloadButton').setAttribute('hidden', '');
-      
-      downloadButton.className = 'btn btn-success';
+      downloadButton.className = 'btn btn-outline-success';
+      document.getElementById('#test').toast('show');
     }
   };
   deleteButtonCell.appendChild(deleteButton);
