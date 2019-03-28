@@ -68,6 +68,7 @@ function addPassword(service, password) {
   copyButton.type = 'button';
   copyButton.className = 'btn btn-outline-primary';
   copyButton.innerHTML = '<img src="clipboard.svg" alt="">';
+  copyButton.id = 'copyButton';
   copyButton.onclick = function() {
     let passField = this.parentElement.parentElement.childNodes[1].childNodes[0];
     passField.focus();
@@ -86,6 +87,7 @@ function addPassword(service, password) {
   deleteButton.type = 'button';
   deleteButton.innerHTML = '<img src="x-circle.svg" alt="">';
   deleteButton.className = 'btn btn-outline-danger';
+  deleteButton.id = 'deleteButton';
   deleteButton.onclick = function() {
     let deletedRow = this.parentElement.parentElement;
     deletedRow.parentElement.removeChild(deletedRow);
@@ -93,7 +95,6 @@ function addPassword(service, password) {
       document.getElementById('passwordOutput').textContent = '';
       document.getElementById('downloadButton').setAttribute('hidden', '');
       downloadButton.className = 'btn btn-outline-success';
-      document.getElementById('#test').toast('show');
     }
   };
   deleteButtonCell.appendChild(deleteButton);

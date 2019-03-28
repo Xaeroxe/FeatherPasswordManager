@@ -54,8 +54,15 @@ p { white-space: 500px;}
   filter: none;
   background: inherit !important;
 }
+.toast {    position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border: 1px solid black;}
 .FeatherSVG{background-color: rgb(66, 66, 66);}
 .FeatherSVG-Danger{background-color: #dc3545}
 .FeatherSVG-Success{background-color: #28a745}
 .FeatherSVG-General{background-color: #007bff}
 .FeatherSVG-Info{background-color: #17a2b8}
+.exit-Toast{color: rgb(134, 0, 0)}

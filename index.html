@@ -30,10 +30,11 @@
     
 <input type="password" id="managerPassword" class="form-control" size="40" autocomplete="off" placeholder="Manager Password - Either set when downloading or opening the file containing the password.">
 
-    <button type="button" class="btn btn-outline-info" value="Load file..." onclick="load();">Load file <img src="upload.svg" alt=""> </button>
+    <button type="button" class="btn btn-outline-info" value="Load file..." onclick="load();" id="loadButton">Load file <img src="upload.svg" alt=""> </button>
     <hr id="hrHidden" hidden>
     <table id="passwordOutput"></table>
     <button id="downloadButton" class="btn btn-outline-success" hidden type="button" value="Download current file" onclick="downloadPasswords();">Download current file <img src="download.svg" alt=""></button>
+<br>
 <br>
     <h5>Add new password</h5>
     <hr>
@@ -74,26 +75,115 @@
   <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
 
       <!-- Then put toasts within -->
-      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" data-dismiss="toast">
+      <!-- Save button Toast -->
+      <div class="toast toast-save" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
         <div class="toast-header">
-            <img src="feather.svg" alt="" class="rounded mr-2 FeatherSVG-Danger" id="iconSVG">
+          <img src="feather.svg" alt="" class="rounded mr-2 FeatherSVG-Success">
           <strong class="mr-auto">Feather Password Manager</strong>
           
           <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true" ><img src="x.svg" alt=""></span>
           </button>
         </div>
         <div class="toast-body" id="toastBody">
-          The selected password has been deleted.
+          The selected password has been saved for the current session.
         </div>
       </div>
       
+        <!-- Download button Toast -->
+      <div class="toast toast-download" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
+        <div class="toast-header">
+          <img src="feather.svg" alt="" class="rounded mr-2 FeatherSVG-Success">
+          <strong class="mr-auto">Feather Password Manager</strong>
+          
+          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true" ><img src="x.svg" alt=""></span>
+          </button>
+        </div>
+        <div class="toast-body" id="toastBody">
+          The selected password queue has been sent to your device.
+        </div>
+      </div>
+
+        <!-- Load button Toast -->
+        <div class="toast toast-load" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
+          <div class="toast-header">
+            <img src="feather.svg" alt="" class="rounded mr-2 FeatherSVG-Info">
+            <strong class="mr-auto">Feather Password Manager</strong>
+            
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+              <span aria-hidden="true" ><img src="x.svg" alt=""></span>
+            </button>
+          </div>
+          <div class="toast-body" id="toastBody">
+            The selected file has been recived.
+          </div>
+        </div>
+        <!-- Copy button Toast -->
+        <div class="toast toast-copy" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
+          <div class="toast-header">
+            <img src="feather.svg" alt="" class="rounded mr-2 FeatherSVG-General">
+            <strong class="mr-auto">Feather Password Manager</strong>
+            
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+              <span aria-hidden="true" ><img src="x.svg" alt=""></span>
+            </button>
+          </div>
+          <div class="toast-body" id="toastBody">
+            The selected password has been copied to your clipboard.
+          </div>
+        </div>
+        <!-- Delete button Toast -->
+        <div class="toast toast-delete" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
+          <div class="toast-header">
+            <img src="feather.svg" alt="" class="rounded mr-2 FeatherSVG-Danger">
+            <strong class="mr-auto">Feather Password Manager</strong>
+            
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+              <span aria-hidden="true" ><img src="x.svg" alt=""></span>
+            </button>
+          </div>
+          <div class="toast-body" id="toastBody">
+            The selected password has been deleted.
+          </div>
+        </div>
+      </div>
+      <!-- Error: Password button Toast -->
+      <div class="toast toast-Error-Wrong-Password" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
+        <div class="toast-header">
+          <img src="feather.svg" alt="" class="rounded mr-2 FeatherSVG-Danger">
+          <strong class="mr-auto">Feather Password Manager</strong>
+          
+          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true" ><img src="x.svg" alt=""></span>
+          </button>
+        </div>
+        <div class="toast-body" id="toastBody">
+          Either an incorrect password was provided, or the file given is not a valid password file.
+        </div>
+      </div>
     </div>
     <script>
+      
       // Toasts can only be shown with Jquery.
-$(document).ready(function(){
-  $('#test').toast('show');
-});
+$("#saveButton").click(function () {
+  $('.toast-save').toast('show');
+    });
+
+    $("#downloadButton").click(function () {
+  $('.toast-download').toast('show');
+    });
+
+    $("#loadButton").click(function () {
+  $('.toast-load').toast('show');
+    });
+    $("#copyButton").click(function () {
+  $('.toast-copy').toast('show');
+    });
+
+    $("#deleteButton").click(function () {
+  $('.toast-delete').toast('show');
+    });
         </script>
   </body>
 </html>
