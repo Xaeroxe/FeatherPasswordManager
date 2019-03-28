@@ -6,44 +6,44 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="feather.svg" type="image/x-icon">
+    <link rel="icon" href="img/feather.png" type="image/png">
    <meta name="theme-color" content="#000">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
   <body>
 <nav class="navbar navbar-expand-sm navbar-dark" style="background-color:#000;">
-    <a class="navbar-brand" href="#"> <img src="feather.svg" class="FeatherSVG rounded" alt="Feather SVG"> Feather Password Manager</a> <!-- I was thinking about adding a basic Feather icon from "FeatherIcons.com" for buttons and the navbar. but at the same time we could just remove the navbar and add it to the main content card. -->
+    <a class="navbar-brand" href="#"> <img src="img/feather.svg" class="FeatherSVG rounded" alt="Feather SVG"> Feather Password Manager</a>
     <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
         aria-expanded="false" aria-label="Toggle navigation"></button>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
     </div>
 </nav>
-<br> 
+<br>
 <br>
 <div class="container">
   <br>
     <h5>Load password file</h5>
     <hr>
 <input type="file" class="form-control-file flex-nowrap" id="passwordFile" autocomplete="off">
-    
+
 <input type="password" id="managerPassword" class="form-control" size="40" autocomplete="off" placeholder="Manager Password - Either set when downloading or opening the file containing the password.">
 
-    <button type="button" class="btn btn-outline-info" value="Load file..." onclick="load();" id="loadButton">Load file <img src="upload.svg" alt=""> </button>
+    <button type="button" class="btn btn-outline-info" value="Load file..." onclick="load();" id="loadButton">Load file <img src="img/upload.svg" alt=""> </button>
     <hr id="hrHidden" hidden>
     <table id="passwordOutput"></table>
-    <button id="downloadButton" class="btn btn-outline-success" hidden type="button" value="Download current file" onclick="downloadPasswords();">Download current file <img src="download.svg" alt=""></button>
+    <button id="downloadButton" class="btn btn-outline-success" hidden type="button" value="Download current file" onclick="downloadPasswords();">Download current file <img src="img/download.svg" alt=""></button>
 <br>
 <br>
     <h5>Add new password</h5>
     <hr>
-    
+
     <input type="text" id="serviceInput" class="form-control" size="30" autocomplete="off"  placeholder="Service Name - ie: Skype, Outlook, Facebook etc.. ">
     <p id="newPasswordOutput"></p>
     <span>Length:<b id="lengthOutput"> </b> </span>
     <input id="length" type="range" class="custom-range" min="8" max="100" value="24">
-    
+
 
     <input id="capsCheckbox" type="checkbox" checked>
     <span>Include uppercase letters</span>
@@ -54,108 +54,68 @@
     <input id="specialCharactersCheckbox" type="checkbox">
     <span>Include special characters</span>
 <p>
-    <button id="saveButton" class="btn btn-outline-success" type="button" value="Save Password" >Save Password  <img src="save.svg" alt=""></button>
+    <button id="saveButton" class="btn btn-outline-success" type="button" value="Save Password" >Save Password  <img src="img/save.svg" alt=""></button>
   </p>
-    <script src="aes.js"></script>
-    <script src="download.js"></script>
-    <script src="main.js"></script>
-    <script> src="toast.js" </script>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    <img src="feather.svg" alt="" class="rounded mr-2 FeatherSVG-General">
-    <img src="feather.svg" alt="" class="rounded mr-2 FeatherSVG-Danger">
-    <img src="feather.svg" alt="" class="rounded mr-2 FeatherSVG-Success">
-    <img src="feather.svg" alt="" class="rounded mr-2 FeatherSVG-Info">
-
+    <script src="js/deps/aes.js"></script>
+    <script src="js/deps/download.js"></script>
+    <script src="js/deps/jquery-3.3.1.slim.min.js"></script>
+    <script src="js/deps/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
   </div>
   <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
 
-      <!-- Then put toasts within -->
       <!-- Save button Toast -->
       <div class="toast toast-save" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
         <div class="toast-header">
-          <img src="feather.svg" alt="" class="rounded mr-2 FeatherSVG-Success">
+          <img src="img/feather.svg" alt="" class="rounded mr-2 FeatherSVG-Success">
           <strong class="mr-auto">Feather Password Manager</strong>
-          
+
           <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true" ><img src="x.svg" alt=""></span>
+            <span aria-hidden="true" ><img src="img/x.svg" alt=""></span>
           </button>
         </div>
         <div class="toast-body" id="toastBody">
-          The selected password has been saved for the current session.
-        </div>
-      </div>
-      
-        <!-- Download button Toast -->
-      <div class="toast toast-download" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
-        <div class="toast-header">
-          <img src="feather.svg" alt="" class="rounded mr-2 FeatherSVG-Success">
-          <strong class="mr-auto">Feather Password Manager</strong>
-          
-          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true" ><img src="x.svg" alt=""></span>
-          </button>
-        </div>
-        <div class="toast-body" id="toastBody">
-          The selected password queue has been sent to your device.
+          Password saved
         </div>
       </div>
 
-        <!-- Load button Toast -->
-        <div class="toast toast-load" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
-          <div class="toast-header">
-            <img src="feather.svg" alt="" class="rounded mr-2 FeatherSVG-Info">
-            <strong class="mr-auto">Feather Password Manager</strong>
-            
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-              <span aria-hidden="true" ><img src="x.svg" alt=""></span>
-            </button>
-          </div>
-          <div class="toast-body" id="toastBody">
-            The selected file has been recived.
-          </div>
-        </div>
         <!-- Copy button Toast -->
         <div class="toast toast-copy" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
           <div class="toast-header">
-            <img src="feather.svg" alt="" class="rounded mr-2 FeatherSVG-General">
+            <img src="img/feather.svg" alt="" class="rounded mr-2 FeatherSVG-General">
             <strong class="mr-auto">Feather Password Manager</strong>
-            
+
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-              <span aria-hidden="true" ><img src="x.svg" alt=""></span>
+              <span aria-hidden="true" ><img src="img/x.svg" alt=""></span>
             </button>
           </div>
           <div class="toast-body" id="toastBody">
-            The selected password has been copied to your clipboard.
+            Password copied to clipboard
           </div>
         </div>
         <!-- Delete button Toast -->
         <div class="toast toast-delete" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
           <div class="toast-header">
-            <img src="feather.svg" alt="" class="rounded mr-2 FeatherSVG-Danger">
+            <img src="img/feather.svg" alt="" class="rounded mr-2 FeatherSVG-Danger">
             <strong class="mr-auto">Feather Password Manager</strong>
-            
+
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-              <span aria-hidden="true" ><img src="x.svg" alt=""></span>
+              <span aria-hidden="true" ><img src="img/x.svg" alt=""></span>
             </button>
           </div>
           <div class="toast-body" id="toastBody">
-            The selected password has been deleted.
+            Password deleted
           </div>
         </div>
       </div>
       <!-- Error: Password button Toast -->
       <div class="toast toast-Error-Wrong-Password" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
         <div class="toast-header">
-          <img src="feather.svg" alt="" class="rounded mr-2 FeatherSVG-Danger">
+          <img src="img/feather.svg" alt="" class="rounded mr-2 FeatherSVG-Danger">
           <strong class="mr-auto">Feather Password Manager</strong>
-          
+
           <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true" ><img src="x.svg" alt=""></span>
+            <span aria-hidden="true" ><img src="img/x.svg" alt=""></span>
           </button>
         </div>
         <div class="toast-body" id="toastBody">
@@ -163,27 +123,5 @@
         </div>
       </div>
     </div>
-    <script>
-      
-      // Toasts can only be shown with Jquery.
-$("#saveButton").click(function () {
-  $('.toast-save').toast('show');
-    });
-
-    $("#downloadButton").click(function () {
-  $('.toast-download').toast('show');
-    });
-
-    $("#loadButton").click(function () {
-  $('.toast-load').toast('show');
-    });
-    $("#copyButton").click(function () {
-  $('.toast-copy').toast('show');
-    });
-
-    $("#deleteButton").click(function () {
-  $('.toast-delete').toast('show');
-    });
-        </script>
   </body>
 </html>

@@ -4,7 +4,7 @@
 
 body {
   background: rgb(20, 20, 20);
-  min-width: 60em; /*Support for smaller device that are skinny and tall. Keep me updated if this isnt enough.*/
+  min-width: 35em; /*Support for smaller device that are skinny and tall. Keep me updated if this isnt enough.*/
 }
 
 h1, h2, h3, h4, h5, h6, p {

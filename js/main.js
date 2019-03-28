@@ -68,7 +68,6 @@ function addPassword(service, password) {
   let passwordValue = document.createElement('input');
   passwordValue.value = password;
   passwordValue.type = 'text';
-  passwordValue.setAttribute('class', 'monospace');
   passwordValue.size = 50;
   passwordValue.setAttribute('autocomplete', 'off');
   passwordCell.appendChild(passwordValue);
@@ -78,30 +77,25 @@ function addPassword(service, password) {
   let copyButton = document.createElement('button');
   copyButton.type = 'button';
   copyButton.className = 'btn btn-outline-primary';
-  copyButton.innerHTML = '<img src="clipboard.svg" alt="">';
-  copyButton.id = 'copyButton';
+  copyButton.innerHTML = '<img src="img/clipboard.svg" alt="">';
   copyButton.onclick = function() {
     let passField = this.parentElement.parentElement.childNodes[1].childNodes[0];
     passField.focus();
     passField.select();
     document.execCommand('copy');
-    this.innerHTML = 'Copied!';
-    let button = this;
-    setTimeout(function() {
-      button.innerHTML = '<img src="clipboard.svg" alt="">';
-    }, 3000);
+    $('.toast-copy').toast('show');
   };
   copyButtonCell.appendChild(copyButton);
   row.appendChild(copyButtonCell);
   let deleteButtonCell = document.createElement('td');
   let deleteButton = document.createElement('button');
   deleteButton.type = 'button';
-  deleteButton.innerHTML = '<img src="x-circle.svg" alt="">';
+  deleteButton.innerHTML = '<img src="img/x-circle.svg" alt="">';
   deleteButton.className = 'btn btn-outline-danger';
-  deleteButton.id = 'deleteButton';
   deleteButton.onclick = function() {
     let deletedRow = this.parentElement.parentElement;
     deletedRow.parentElement.removeChild(deletedRow);
+    $('.toast-delete').toast('show');
     if(document.getElementById('passwordOutput').childNodes.length == 1) {
       document.getElementById('passwordOutput').textContent = '';
       document.getElementById('downloadButton').setAttribute('hidden', '');
@@ -124,7 +118,7 @@ function load() {
           fileInput = JSON.parse(CryptoJS.AES.decrypt(e.target.result, managerPassword).toString(CryptoJS.enc.Utf8));
       }
       catch(err) {
-        alert("Either an incorrect password was provided, or the file given is not a valid password file.");
+        $('.toast-Error-Wrong-Password').toast('show');
       }
       let keys = Object.keys(fileInput);
       keys.sort();
@@ -300,6 +294,7 @@ special.onclick = genPassword;
 genPassword();
 saveButton.onclick = function() {
   addPassword(document.getElementById('serviceInput').value, document.getElementById('newPasswordOutput').textContent);
-document.getElementById('serviceInput').value = '';
+  document.getElementById('serviceInput').value = '';
   genPassword();
+  $('.toast-save').toast('show');
 }

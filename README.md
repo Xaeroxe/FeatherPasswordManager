@@ -1,15 +1,9 @@
 # Feather Password Manager
-***
-###### This Is Forked Version of Xaeroxe's Feather Password Manager
-###### This version is maintained by Yeehawlerz101.
-###### Currently only IE 11 is supported. 
-
-***
 
 This is a highly portable extremely light-weight password manager that stores
 all your passwords in a local encrypted file.
 You can use this either by downloading the latest [release](https://github.com/Xaeroxe/FeatherPasswordManager/releases) and opening index.html, or you can
-use it at this URL: https://yeehawlerz101.github.io/FeatherPasswordManager/
+use it at this URL: https://xaeroxe.github.io/FeatherPasswordManager/
 
 ## Features
 - Load and save password files encrypted with a password
@@ -28,7 +22,7 @@ use it at this URL: https://yeehawlerz101.github.io/FeatherPasswordManager/
 
 
 ## Philosophy and objectives
-- Stay under 200 KB
+- Stay under 750 KB
 - Work correctly in as many browsers and on as many devices as possible
 - Extremely responsive, no waiting around
 - High security encryption algorithm (AES)
