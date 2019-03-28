@@ -68,7 +68,7 @@ function addPassword(service, password) {
   copyButton.type = 'button';
   copyButton.className = 'btn btn-outline-primary';
   copyButton.innerHTML = '<img src="clipboard.svg" alt="">';
-  copyButton.id = 'copyButton';
+  copyButton.id = 'copyToClipButton';
   copyButton.onclick = function() {
     let passField = this.parentElement.parentElement.childNodes[1].childNodes[0];
     passField.focus();
