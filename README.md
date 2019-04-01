@@ -20,6 +20,13 @@ use it at this URL: https://xaeroxe.github.io/FeatherPasswordManager/
 
 ![Screenshot](Demo.png)
 
+## How to get started
+The first thing you need to do is create a file. First set a manager password, just type it in to the top most text box. This 
+password will be needed to decrypt your file, so make sure you remember it. Use the bottom most controls to create passwords 
+for various services and save them as you go. When you're done click the "Download current file" button, which will give you 
+"passwords.txt". Then you can use that file with the load file controls in the future to retrieve your passwords or modify the 
+file. File modifications don't save automatically, you'll need to download the file again to save modifications.
+
 
 ## Philosophy and objectives
 - Stay under 750 KB
