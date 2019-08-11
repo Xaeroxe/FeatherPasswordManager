@@ -1,3 +1,27 @@
+function addHeaders() {
+  document.getElementById('downloadButton').removeAttribute('hidden');
+  document.getElementById('hrHidden').removeAttribute('hidden');
+  let passwordOutput = document.getElementById('passwordOutput');
+  passwordOutput.textContent = '';
+  let headers = document.createElement('tr');
+  let serviceHeaderCell = document.createElement('th');
+  let passwordHeaderCell = document.createElement('th');
+  let creationDateHeaderCell = document.createElement('th');
+  let copyHeaderCell = document.createElement('th');
+  let deleteHeaderCell = document.createElement('th');
+  serviceHeaderCell.textContent = 'Service';
+  passwordHeaderCell.textContent = 'Password';
+  creationDateHeaderCell.setAttribute('hidden', true);
+  copyHeaderCell.textContent = 'Copy';
+  deleteHeaderCell.textContent = 'Remove';
+  headers.appendChild(serviceHeaderCell);
+  headers.appendChild(passwordHeaderCell);
+  headers.appendChild(creationDateHeaderCell);
+  headers.appendChild(copyHeaderCell);
+  headers.appendChild(deleteHeaderCell);
+  passwordOutput.appendChild(headers);
+}
+
 function addPassword(service, password, creationDate) {
   let rows = document.getElementById('passwordOutput').childNodes;
   for(var i = 1; i < rows.length; i++) {

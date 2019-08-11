@@ -5,30 +5,6 @@ document.getElementById('managerPassword').addEventListener('keyup', function(e)
   }
 });
 
-function addHeaders() {
-  document.getElementById('downloadButton').removeAttribute('hidden');
-  document.getElementById('hrHidden').removeAttribute('hidden');
-  let passwordOutput = document.getElementById('passwordOutput');
-  passwordOutput.textContent = '';
-  let headers = document.createElement('tr');
-  let serviceHeaderCell = document.createElement('th');
-  let passwordHeaderCell = document.createElement('th');
-  let creationDateHeaderCell = document.createElement('th');
-  let copyHeaderCell = document.createElement('th');
-  let deleteHeaderCell = document.createElement('th');
-  serviceHeaderCell.textContent = 'Service';
-  passwordHeaderCell.textContent = 'Password';
-  creationDateHeaderCell.setAttribute('hidden', true);
-  copyHeaderCell.textContent = 'Copy';
-  deleteHeaderCell.textContent = 'Remove';
-  headers.appendChild(serviceHeaderCell);
-  headers.appendChild(passwordHeaderCell);
-  headers.appendChild(creationDateHeaderCell);
-  headers.appendChild(copyHeaderCell);
-  headers.appendChild(deleteHeaderCell);
-  passwordOutput.appendChild(headers);
-}
-
 function load() {
   let fileEntry = document.getElementById('passwordFile').files;
   let managerPassword = document.getElementById('managerPassword').value;

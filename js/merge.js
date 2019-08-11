@@ -27,27 +27,6 @@ function downloadPasswords() {
   download(newFile, "passwords.txt", "text/plain")
 }
 
-function addHeaders() {
-  document.getElementById('downloadButton').removeAttribute('hidden');
-  document.getElementById('hrHidden').removeAttribute('hidden');
-  let passwordOutput = document.getElementById('passwordOutput');
-  passwordOutput.textContent = '';
-  let headers = document.createElement('tr');
-  let serviceHeaderCell = document.createElement('th');
-  let passwordHeaderCell = document.createElement('th');
-  let copyHeaderCell = document.createElement('th');
-  let deleteHeaderCell = document.createElement('th');
-  serviceHeaderCell.textContent = 'Service';
-  passwordHeaderCell.textContent = 'Password';
-  copyHeaderCell.textContent = 'Copy';
-  deleteHeaderCell.textContent = 'Remove';
-  headers.appendChild(serviceHeaderCell);
-  headers.appendChild(passwordHeaderCell);
-  headers.appendChild(copyHeaderCell);
-  headers.appendChild(deleteHeaderCell);
-  passwordOutput.appendChild(headers);
-}
-
 function load() {
   let fileEntry1 = document.getElementById('passwordFile1').files;
   let managerPassword1 = document.getElementById('managerPassword1').value;
