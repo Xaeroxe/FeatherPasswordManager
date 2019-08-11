@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Feather Passwords</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" href="img/feather.png" type="image/png">
+  <meta name="theme-color" content="#000">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm navbar-dark" style="background-color:#000;">
+    <a class="navbar-brand" href="#">
+      <img src="img/feather.svg" class="FeatherSVG rounded" alt="Feather SVG"> Feather Password Manager</a>
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+    </div>
+  </nav>
+  <br>
+  <br>
+  <div class="container">
+    <br>
+    <h5>Merge password files</h5>
+    <hr>
+    <p>File 1 (Merged file will be encrypted with the password from this one)</p>
+    <input type="file" class="form-control-file flex-nowrap" id="passwordFile1" autocomplete="off">
+    <input type="password" id="managerPassword1" class="form-control" size="40" autocomplete="off" placeholder="Password to decrypt file 1">
+    <p>File 2</p>
+    <input type="file" class="form-control-file flex-nowrap" id="passwordFile2" autocomplete="off">
+    <input type="password" id="managerPassword2" class="form-control" size="40" autocomplete="off" placeholder="Password to decrypt file 2">
+    <button type="button" class="btn btn-outline-info" value="Load files..." onclick="load();" id="loadButton">Load files <img src="img/upload.svg" alt="">
+    </button>
+    <button id="backToHomeButton" class="btn btn-outline-info" type="button" value="Password File Merge Tool" onclick="location.href='index.html';">Back to home page <img src="img/feather.svg" alt=""></button>
+    <hr id="hrHidden" hidden>
+    <table id="passwordOutput">
+    </table>
+    <button id="downloadButton" class="btn btn-outline-success" hidden type="button" value="Download current file" onclick="downloadPasswords();">Download current file <img src="img/download.svg" alt=""></button>
+    <script src="js/deps/aes.js">
+    </script>
+    <script src="js/deps/download.js">
+    </script>
+    <script src="js/deps/jquery-3.3.1.slim.min.js">
+    </script>
+    <script src="js/deps/bootstrap.min.js">
+    </script>
+    <script src="js/shared.js">
+    </script>
+    <script src="js/merge.js">
+    </script>
+  </div>
+  <!-- Merge Conflict Modal -->
+  <div id="mergeConflictModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <h3>Password Merge Conflict</h3>
+      <h4 id="mergeConflictServiceName"></h4>
+      <p>Pick the password to keep</p>
+      <button type="button" class="btn btn-outline-info" onclick="resolveConflict(1);" id="mergeConflictOption1"></button>
+      <button type="button" class="btn btn-outline-info" onclick="resolveConflict(2);" id="mergeConflictOption2"></button>
+      <button type="button" class="btn btn-outline-info" onclick="conflictKeepBoth();" id="mergeConflictKeepBoth">Keep Both</button>
+    </div>
+
+  </div>
+  <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
+    <!-- Error: Password button Toast -->
+    <div class="toast toast-Error-Wrong-Password" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
+      <div class="toast-header">
+        <img src="img/feather.svg" alt="" class="rounded mr-2 FeatherSVG-Danger">
+        <strong class="mr-auto">Feather Password Manager</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">
+            <img src="img/x.svg" alt="">
+          </span>
+        </button>
+      </div>
+      <div class="toast-body" id="toastBody"> Either an incorrect password was provided, or the file given is not a valid password file. </div>
+    </div>
+    <!-- Success: Merged without conflict -->
+    <div class="toast toast-Success-No-Conflict" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
+      <div class="toast-header">
+        <img src="img/feather.svg" alt="" class="rounded mr-2 FeatherSVG-General">
+        <strong class="mr-auto">Feather Password Manager</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">
+            <img src="img/x.svg" alt="">
+          </span>
+        </button>
+      </div>
+      <div class="toast-body" id="toastBody"> Files merged without conflict. </div>
+    </div>
+    <!-- Success: Conflicts resolved -->
+    <div class="toast toast-Success-Conflict-Resolved" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
+      <div class="toast-header">
+        <img src="img/feather.svg" alt="" class="rounded mr-2 FeatherSVG-General">
+        <strong class="mr-auto">Feather Password Manager</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">
+            <img src="img/x.svg" alt="">
+          </span>
+        </button>
+      </div>
+      <div class="toast-body" id="toastBody"> All merge conflicts resolved. </div>
+    </div>
+  </div>
+</body>
+
+</html>
