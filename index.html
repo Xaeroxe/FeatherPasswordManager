@@ -12,6 +12,8 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/img/icon-512x512.png">
 </head>
 
 <body>
@@ -64,6 +66,34 @@
     <script src="js/deps/bootstrap.min.js"></script>
     <script src="js/shared.js"></script>
     <script src="js/main.js"></script>
+    <script src="/upup.min.js"></script>
+    <script>
+      UpUp.start({
+        'content-url': 'index.html',
+        'assets': [
+          'img/clipboard.svg',
+          'img/download.svg',
+          'img/feather.svg',
+          'img/git-merge.svg',
+          'img/save.svg',
+          'img/upload.svg',
+          'img/x-circle.svg',
+          'img/x.svg',
+          'img/feather.png',
+          'css/bootstrap.min.css',
+          'css/style.css',
+          'js/deps/aes.js',
+          'js/deps/bootstrap.min.js',
+          'js/deps/download.js',
+          'js/deps/jquery-3.3.1.slim.min.js',
+          'js/main.js',
+          'js/merge.js',
+          'js/shared.js',
+          'index.html',
+          'merge.html',
+        ]
+      });
+    </script>
   </div>
   <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
 
