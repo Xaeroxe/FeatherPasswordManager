@@ -21,7 +21,7 @@ input[type=file]{
   border:auto;
   padding: auto;
 }
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=number] {
   background-color: rgb(0, 0, 0);
   color: #eee;
 }

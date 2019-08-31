@@ -74,6 +74,7 @@ function load() {
             }
           }
         }
+        setClearTimeout(document.getElementById('fileLifetime').value);
         if(mergeConflicts.length === 0) {
           $('.toast-Success-No-Conflict').toast('show');
         }

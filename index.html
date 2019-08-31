@@ -34,6 +34,7 @@
     <input type="password" id="managerPassword" class="form-control" size="40" autocomplete="off" placeholder="Manager Password - Either set when downloading or opening the file containing the password.">
 
     <button type="button" class="btn btn-outline-info" value="Load file..." onclick="load();" id="loadButton">Load file <img src="img/upload.svg" alt=""> </button>
+    <span>Keep file loaded for </span><input type="number" id="fileLifetime" value="15"/><span> minutes.</span>
     <hr id="hrHidden" hidden>
     <table id="passwordOutput"></table>
     <button id="downloadButton" class="btn btn-outline-success" hidden type="button" value="Download current file" onclick="downloadPasswords();">Download current file <img src="img/download.svg" alt=""></button>

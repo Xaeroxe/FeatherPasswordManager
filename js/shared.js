@@ -1,3 +1,14 @@
+var timeoutID;
+
+function setClearTimeout(minutes) {
+  if(typeof timeoutID === 'number') {
+    clearTimeout(timeoutID);
+  }
+  timeoutID = setTimeout(function() {
+    document.location.reload();
+  }, minutes * 60000);
+}
+
 function addHeaders() {
   document.getElementById('downloadButton').removeAttribute('hidden');
   document.getElementById('hrHidden').removeAttribute('hidden');

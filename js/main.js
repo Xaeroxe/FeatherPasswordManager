@@ -28,6 +28,7 @@ function load() {
         }
         addPassword(keys[i], entry.password, entry.creationDate);
       }
+      setClearTimeout(document.getElementById('fileLifetime').value);
     };
     reader.readAsText(fileEntry[0]);
   }
