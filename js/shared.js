@@ -1,4 +1,4 @@
-var timeoutID;
+var timeoutID = null;
 
 function setClearTimeout(minutes) {
   if(typeof timeoutID === 'number') {

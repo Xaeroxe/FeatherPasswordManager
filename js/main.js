@@ -48,7 +48,9 @@ function getRandomInt(min, max) {
 }
 
 function genPassword() {
-  setClearTimeout(document.getElementById('fileLifetime').value);
+  if(timeoutID !== null) {
+      setClearTimeout(document.getElementById('fileLifetime').value);
+  }
   let caps = document.getElementById("capsCheckbox").checked;
   let digits = document.getElementById("digitsCheckbox").checked;
   let special = document.getElementById("specialCharactersCheckbox").checked;
