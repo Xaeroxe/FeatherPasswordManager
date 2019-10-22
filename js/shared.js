@@ -18,16 +18,19 @@ function addHeaders() {
   let serviceHeaderCell = document.createElement('th');
   let passwordHeaderCell = document.createElement('th');
   let creationDateHeaderCell = document.createElement('th');
+  let showHeaderCell = document.createElement('th');
   let copyHeaderCell = document.createElement('th');
   let deleteHeaderCell = document.createElement('th');
   serviceHeaderCell.textContent = 'Service';
   passwordHeaderCell.textContent = 'Password';
   creationDateHeaderCell.setAttribute('hidden', true);
+  showHeaderCell.textContent = 'Show';
   copyHeaderCell.textContent = 'Copy';
   deleteHeaderCell.textContent = 'Remove';
   headers.appendChild(serviceHeaderCell);
   headers.appendChild(passwordHeaderCell);
   headers.appendChild(creationDateHeaderCell);
+  headers.appendChild(showHeaderCell);
   headers.appendChild(copyHeaderCell);
   headers.appendChild(deleteHeaderCell);
   passwordOutput.appendChild(headers);
@@ -62,7 +65,7 @@ function addPassword(service, password, creationDate) {
   let passwordCell = document.createElement('td');
   let passwordValue = document.createElement('input');
   passwordValue.value = password;
-  passwordValue.type = 'text';
+  passwordValue.type = 'password';
   passwordValue.size = 50;
   passwordValue.setAttribute('autocomplete', 'off');
   passwordCell.appendChild(passwordValue);
@@ -74,6 +77,21 @@ function addPassword(service, password, creationDate) {
   creationDateCell.setAttribute('hidden', true);
   creationDateCell.appendChild(creationDateValue);
   row.appendChild(creationDateCell);
+  let showButtonCell= document.createElement('td');
+  let showButton = document.createElement('button');
+  showButton.type = 'button';
+  showButton.className = 'btn btn-outline-primary';
+  showButton.innerHTML = '<img src="img/eye.svg" alt="">';
+  showButton.onclick = function() {
+    let passField = this.parentElement.parentElement.childNodes[1].childNodes[0];
+    if (passField.type === 'text') {
+	passField.type = 'password';
+    } else {
+        passField.type = 'text';
+    }
+  };
+  showButtonCell.appendChild(showButton);
+  row.appendChild(showButtonCell);
   let copyButtonCell = document.createElement('td');
   let copyButton = document.createElement('button');
   copyButton.type = 'button';
@@ -81,6 +99,9 @@ function addPassword(service, password, creationDate) {
   copyButton.innerHTML = '<img src="img/clipboard.svg" alt="">';
   copyButton.onclick = function() {
     let passField = this.parentElement.parentElement.childNodes[1].childNodes[0];
+    if (passField.type === 'password' ) {
+        passField.type = 'text';
+    }
     passField.focus();
     passField.select();
     document.execCommand('copy');
