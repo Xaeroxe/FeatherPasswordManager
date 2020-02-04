@@ -99,12 +99,17 @@ function addPassword(service, password, creationDate) {
   copyButton.innerHTML = '<img src="img/clipboard.svg" alt="">';
   copyButton.onclick = function() {
     let passField = this.parentElement.parentElement.childNodes[1].childNodes[0];
+    let switched = false;
     if (passField.type === 'password' ) {
         passField.type = 'text';
+        switched = true;
     }
     passField.focus();
     passField.select();
     document.execCommand('copy');
+    if(switched) {
+        passField.type = 'password';
+    }
     $('.toast-copy').toast('show');
   };
   copyButtonCell.appendChild(copyButton);
