@@ -69,7 +69,7 @@ function addPassword(service, password, creationDate) {
   passwordValue.size = 50;
   passwordValue.setAttribute('autocomplete', 'off');
   passwordCell.appendChild(passwordValue);
-  passwordValue.className = 'form-control monospace';
+  passwordValue.className = 'form-control ubuntu';
   row.appendChild(passwordCell);
   let creationDateCell = document.createElement('td');
   let creationDateValue = document.createElement('p');
