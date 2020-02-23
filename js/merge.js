@@ -27,7 +27,16 @@ function downloadPasswords() {
   download(newFile, "passwords.txt", "text/plain")
 }
 
+var matches = 0;
+var onlyInFile1 = 0;
+var onlyInFile2 = 0;
+var conflictCount = 0;
+
 function load() {
+  matches = 0;
+  onlyInFile1 = 0;
+  onlyInFile2 = 0;
+  conflictCount = 0;
   let fileEntry1 = document.getElementById('passwordFile1').files;
   let managerPassword1 = document.getElementById('managerPassword1').value;
   let fileEntry2 = document.getElementById('passwordFile2').files;
@@ -37,11 +46,12 @@ function load() {
     let reader2 = new FileReader();
     var firstLoaded = null;
     mergeConflicts = [];
-    let processFile = function(fileInput) {
+    let processFile = function(fileNumber, fileInput) {
       if(firstLoaded === null) {
         firstLoaded = fileInput;
       }
       else {
+        let isOne = fileNumber === 1;
         let keys = new Set(Object.keys(fileInput));
         let firstLoadedKeys = Object.keys(firstLoaded);
         for(var i = 0; i < firstLoadedKeys.length; i++) {
@@ -54,10 +64,20 @@ function load() {
           if(typeof fileInput[keys[i]] === 'undefined') {
             let entry = normalizePasswordEntry(firstLoaded[keys[i]]);
             addPassword(keys[i], entry.password, entry.creationDate || new Date().toISOString());
+            if(isOne) {
+              onlyInFile2++;
+            } else {
+              onlyInFile1++;
+            }
           }
           else if(typeof firstLoaded[keys[i]] === 'undefined') {
             let entry = normalizePasswordEntry(fileInput[keys[i]]);
             addPassword(keys[i], entry.password, entry.creationDate || new Date().toISOString());
+            if(isOne) {
+              onlyInFile1++;
+            } else {
+              onlyInFile2++;
+            }
           }
           else {
             let entry = normalizePasswordEntry(fileInput[keys[i]]);
@@ -68,15 +88,21 @@ function load() {
                 entry1: entry,
                 entry2: firstLoadedEntry,
               });
+              conflictCount++;
             }
             else {
               addPassword(keys[i], entry.password, entry.creationDate);
+              matches++;
             }
           }
         }
         setClearTimeout(document.getElementById('fileLifetime').value);
         if(mergeConflicts.length === 0) {
-          $('.toast-Success-No-Conflict').toast('show');
+          document.getElementById('file1OnlyCount').innerText = onlyInFile1.toString();
+          document.getElementById('file2OnlyCount').innerText = onlyInFile2.toString();
+          document.getElementById('matchedCount').innerText = matches.toString();
+          document.getElementById('conflictCount').innerText = conflictCount.toString();
+          $('.toast-Success').toast('show');
         }
         else {
           promptConflictResolve();
@@ -90,7 +116,7 @@ function load() {
       catch(err) {
         $('.toast-Error-Wrong-Password').toast('show');
       }
-      processFile(fileInput);
+      processFile(1, fileInput);
     };
     reader2.onload = function(e) {
       try {
@@ -99,7 +125,7 @@ function load() {
       catch(err) {
         $('.toast-Error-Wrong-Password').toast('show');
       }
-      processFile(fileInput);
+      processFile(2, fileInput);
     };
     reader1.readAsText(fileEntry1[0]);
     reader2.readAsText(fileEntry2[0]);
@@ -125,7 +151,11 @@ function promptConflictResolve() {
     document.getElementById('mergeConflictModal').style.display = 'block';
   }
   else {
-    $('.toast-Success-Conflict-Resolved').toast('show');
+    document.getElementById('file1OnlyCount').innerText = onlyInFile1.toString();
+    document.getElementById('file2OnlyCount').innerText = onlyInFile2.toString();
+    document.getElementById('matchedCount').innerText = matches.toString();
+    document.getElementById('conflictCount').innerText = conflictCount.toString();
+    $('.toast-Success').toast('show');
   }
 }
 

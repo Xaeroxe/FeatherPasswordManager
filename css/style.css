@@ -15,6 +15,10 @@ p, span, input, th {
   color: #ccc;
   margin: 0.5em;
 }
+span.toast-value {
+  color: black;
+  margin: 0;
+}
 input[type=file]{
   margin: 0em;
   margin: auto;

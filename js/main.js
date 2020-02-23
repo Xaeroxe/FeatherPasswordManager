@@ -28,6 +28,8 @@ function load() {
         }
         addPassword(keys[i], entry.password, entry.creationDate);
       }
+      document.getElementById('passwordCount').innerText = keys.length.toString();
+      $('.toast-Passwords-Loaded').toast('show');
       setClearTimeout(document.getElementById('fileLifetime').value);
     };
     reader.readAsText(fileEntry[0]);

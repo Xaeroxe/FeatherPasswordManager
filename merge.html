@@ -116,8 +116,8 @@
       </div>
       <div class="toast-body"> Either an incorrect password was provided, or the file given is not a valid password file. </div>
     </div>
-    <!-- Success: Merged without conflict -->
-    <div class="toast toast-Success-No-Conflict" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
+    <!-- Success: Merged -->
+    <div class="toast toast-Success" role="alert" aria-live="assertive" aria-atomic="true" data-delay="8000" data-dismiss="toast">
       <div class="toast-header">
         <img src="img/feather.svg" alt="" class="rounded mr-2 FeatherSVG-General">
         <strong class="mr-auto">Feather Password Manager</strong>
@@ -127,20 +127,12 @@
           </span>
         </button>
       </div>
-      <div class="toast-body"> Files merged without conflict. </div>
-    </div>
-    <!-- Success: Conflicts resolved -->
-    <div class="toast toast-Success-Conflict-Resolved" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
-      <div class="toast-header">
-        <img src="img/feather.svg" alt="" class="rounded mr-2 FeatherSVG-General">
-        <strong class="mr-auto">Feather Password Manager</strong>
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-          <span aria-hidden="true">
-            <img src="img/x.svg" alt="">
-          </span>
-        </button>
+      <div class="toast-body"> File merge complete. <br />
+        <span id="file1OnlyCount" class="toast-value"></span> password(s) were only in file 1. <br />
+        <span id="file2OnlyCount" class="toast-value"></span> password(s) were only in file 2. <br />
+        <span id="matchedCount" class="toast-value"></span> password(s) were identical in the files. <br />
+        <span id="conflictCount" class="toast-value"></span> password(s) required conflict resolution. <br />
       </div>
-      <div class="toast-body"> All merge conflicts resolved. </div>
     </div>
   </div>
 </body>
