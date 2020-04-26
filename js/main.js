@@ -51,68 +51,66 @@ function getRandomInt(min, max) {
 
 function genPassword() {
   if(timeoutID !== null) {
-      setClearTimeout(document.getElementById('fileLifetime').value);
+    setClearTimeout(document.getElementById('fileLifetime').value);
   }
+  let meets_criteria = false;
   let caps = document.getElementById("capsCheckbox").checked;
   let digits = document.getElementById("digitsCheckbox").checked;
   let special = document.getElementById("specialCharactersCheckbox").checked;
   let length = document.getElementById("length").value;
-  let charTypes = 1;
-  if (caps) {
-    charTypes++;
-  }
-  if(digits) {
-    charTypes++;
-  }
-  if(special) {
-    charTypes++;
-  }
-  let charsRemaining = {
-    lower: Math.floor(length / charTypes),
-    caps: 0,
-    digits: 0,
-    special: 0,
-  };
-  if(caps) {
-    charsRemaining.caps = Math.floor(length / charTypes);
-  }
-  if(digits) {
-    charsRemaining.digits = Math.floor(length / charTypes);
-  }
-  if(special) {
-    charsRemaining.special = Math.floor(length / charTypes);
-  }
+  let char_type_needed = [true, caps, digits, special];
   let password = '';
-  let overrideLength = false;
-  while (password.length < length) {
-    let charType = getRandomInt(1, 4);
-    if(!overrideLength && charsRemaining.lower <= 0 && charsRemaining.caps <= 0 && charsRemaining.digits <= 0 && charsRemaining.special <= 0) {
-      overrideLength = true;
-      charType = 1;
+  while(!meets_criteria) {
+    let char_type_counts = [0, 0, 0, 0];
+    password = '';
+    while (password.length < length) {
+      let charType = getRandomInt(1, 4);
+      let new_char = genCharType(charType, char_type_needed);
+      if(new_char) {
+        password += new_char;
+        char_type_counts[charType - 1]++;
+      }
     }
-    switch (charType) {
-      case 1:
-        if(charsRemaining.lower > 0 || overrideLength) {
-          charsRemaining.lower--;
-          password += String.fromCharCode(getRandomInt(97, 122));
-        }
-        break;
-      case 2:
-        if(charsRemaining.caps > 0) {
-          charsRemaining.caps--;
-          password += String.fromCharCode(getRandomInt(65, 90));
-        }
-        break;
-      case 3:
-        if(charsRemaining.digits > 0) {
-          charsRemaining.digits--;
-          password += String.fromCharCode(getRandomInt(48, 57));
-        }
-        break;
-      case 4:
-        if(charsRemaining.special > 0) {
-          charsRemaining.special--;
-          let code = getRandomInt(1, 19);
+    meets_criteria = meetsCriteria(char_type_counts, char_type_needed);
+    // It is extremely rare for a password to not meet criteria, but it does happen.
+    // If our user is unlucky, we'll just throw the password out and generate a new one.
+  }
+
+  document.getElementById('newPasswordOutput').textContent = password;
+}
+
+const lowerRange = [97, 122];
+const upperRange = [65, 90];
+const digitsRange = [48, 57];
+
+function meetsCriteria(characterCounts, characterRequirements) {
+  let meets_criteria = true;
+  for(let i = 0; i < characterCounts.length; i++) {
+    if(characterRequirements[i] && characterCounts[i] <= 0) {
+      meets_criteria = false;
+      break;
+    }
+  }
+  return meets_criteria;
+}
+
+function genCharType(charType, char_type_needed) {
+  switch (charType) {
+    case 1:
+      return String.fromCharCode(getRandomInt(lowerRange[0], lowerRange[1]));
+    case 2:
+      if(char_type_needed[1]) {
+        return String.fromCharCode(getRandomInt(upperRange[0], upperRange[1]));
+      }
+      break;
+    case 3:
+      if(char_type_needed[2]) {
+        return String.fromCharCode(getRandomInt(digitsRange[0], digitsRange[1]));
+      }
+      break;
+    case 4:
+      if(char_type_needed[3]) {
+        let code = getRandomInt(1, 19);
           switch (code) {
             case 1:
               code = 33;
@@ -172,12 +170,11 @@ function genPassword() {
               code = 125;
               break;
           }
-          password += String.fromCharCode(code);
-        }
-        break;
-    }
+          return String.fromCharCode(code);
+      }
+      break;
   }
-  document.getElementById('newPasswordOutput').textContent = password;
+  return null;
 }
 
 let slider = document.getElementById("length");
