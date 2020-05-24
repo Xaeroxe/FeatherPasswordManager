@@ -14,6 +14,15 @@ document.getElementById('managerPassword2').addEventListener('keyup', function(e
   }
 });
 
+function copyPasswords() {
+  let nonEmptyPassword = document.getElementById('managerPassword1').value;
+  if (nonEmptyPassword === '') {
+    nonEmptyPassword = document.getElementById('managerPassword2').value;
+  }
+  document.getElementById('managerPassword1').value = nonEmptyPassword;
+  document.getElementById('managerPassword2').value = nonEmptyPassword;
+}
+
 function downloadPasswords() {
   let passwords = {};
   let rows = document.getElementById('passwordOutput').childNodes;
