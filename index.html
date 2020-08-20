@@ -37,7 +37,7 @@
     <span>Keep file loaded for </span><input type="number" id="fileLifetime" value="15"/><span> minutes.</span>
     <hr id="hrHidden" hidden>
     <table id="passwordOutput"></table>
-    <button id="downloadButton" class="btn btn-outline-success" hidden type="button" value="Download current file" onclick="downloadPasswords();">Download current file <img src="img/download.svg" alt=""></button>
+    <button id="downloadButton" class="btn btn-outline-success" hidden type="button" value="Download current file" onclick="downloadPasswords(document.getElementById('managerPassword').value);">Download current file <img src="img/download.svg" alt=""></button>
     <br>
     <br>
     <h5>Add new password</h5>
@@ -62,6 +62,7 @@
       <button id="mergeButton" class="btn btn-outline-info" type="button" value="Password File Merge Tool" onclick="location.href='merge.html';">Password file merge tool <img src="img/git-merge.svg" alt=""></button>
     </p>
     <script src="js/deps/aes.js"></script>
+    <script src="js/deps/sjcl.js"></script>
     <script src="js/deps/download.js"></script>
     <script src="js/deps/jquery-3.3.1.slim.min.js"></script>
     <script src="js/deps/bootstrap.min.js"></script>
@@ -143,6 +144,20 @@
       </div>
     </div>
   </div>
+  <!-- Error: Old Password button Toast -->
+  <div class="toast toast-Error-Wrong-Password-Or-File" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
+    <div class="toast-header">
+      <img src="img/feather.svg" alt="" class="rounded mr-2 FeatherSVG-Danger">
+      <strong class="mr-auto">Feather Password Manager</strong>
+
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true"><img src="img/x.svg" alt=""></span>
+      </button>
+    </div>
+    <div class="toast-body">
+      Either an incorrect password was provided, or the file given is not a valid password file.
+    </div>
+  </div>
   <!-- Error: Password button Toast -->
   <div class="toast toast-Error-Wrong-Password" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
     <div class="toast-header">
@@ -154,7 +169,7 @@
       </button>
     </div>
     <div class="toast-body">
-      Either an incorrect password was provided, or the file given is not a valid password file.
+      Password is not correct for this file.
     </div>
   </div>
   <!-- Passwords loaded report -->

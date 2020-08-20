@@ -47,8 +47,10 @@
     <hr id="hrHidden" hidden>
     <table id="passwordOutput">
     </table>
-    <button id="downloadButton" class="btn btn-outline-success" hidden type="button" value="Download current file" onclick="downloadPasswords();">Download current file <img src="img/download.svg" alt=""></button>
+    <button id="downloadButton" class="btn btn-outline-success" hidden type="button" value="Download current file" onclick="downloadPasswords(document.getElementById('managerPassword1').value);">Download current file <img src="img/download.svg" alt=""></button>
     <script src="js/deps/aes.js">
+    </script>
+    <script src="js/deps/sjcl.js">
     </script>
     <script src="js/deps/download.js">
     </script>
@@ -60,7 +62,7 @@
     </script>
     <script src="js/merge.js">
     </script>
-    <script src="/upup.min.js"></script>
+    <script src="upup.min.js"></script>
     <script>
       UpUp.start({
         'content-url': 'index.html',
@@ -106,7 +108,7 @@
   </div>
   <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
     <!-- Error: Password button Toast -->
-    <div class="toast toast-Error-Wrong-Password" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
+    <div class="toast toast-Error-Wrong-Password-Or-File-1" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
       <div class="toast-header">
         <img src="img/feather.svg" alt="" class="rounded mr-2 FeatherSVG-Danger">
         <strong class="mr-auto">Feather Password Manager</strong>
@@ -116,7 +118,46 @@
           </span>
         </button>
       </div>
-      <div class="toast-body"> Either an incorrect password was provided, or the file given is not a valid password file. </div>
+      <div class="toast-body"> File 1: Either an incorrect password was provided, or the file given is not a valid password file. </div>
+    </div>
+    <!-- Error: Password button Toast -->
+    <div class="toast toast-Error-Wrong-Password-1" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
+      <div class="toast-header">
+        <img src="img/feather.svg" alt="" class="rounded mr-2 FeatherSVG-Danger">
+        <strong class="mr-auto">Feather Password Manager</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">
+            <img src="img/x.svg" alt="">
+          </span>
+        </button>
+      </div>
+      <div class="toast-body"> The password for File 1 is incorrect. </div>
+    </div>
+    <!-- Error: Password button Toast -->
+    <div class="toast toast-Error-Wrong-Password-Or-File-2" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
+      <div class="toast-header">
+        <img src="img/feather.svg" alt="" class="rounded mr-2 FeatherSVG-Danger">
+        <strong class="mr-auto">Feather Password Manager</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">
+            <img src="img/x.svg" alt="">
+          </span>
+        </button>
+      </div>
+      <div class="toast-body"> File 2: Either an incorrect password was provided, or the file given is not a valid password file. </div>
+    </div>
+    <!-- Error: Password button Toast -->
+    <div class="toast toast-Error-Wrong-Password-2" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" data-dismiss="toast">
+      <div class="toast-header">
+        <img src="img/feather.svg" alt="" class="rounded mr-2 FeatherSVG-Danger">
+        <strong class="mr-auto">Feather Password Manager</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">
+            <img src="img/x.svg" alt="">
+          </span>
+        </button>
+      </div>
+      <div class="toast-body"> The password for File 2 is incorrect. </div>
     </div>
     <!-- Success: Merged -->
     <div class="toast toast-Success" role="alert" aria-live="assertive" aria-atomic="true" data-delay="8000" data-dismiss="toast">

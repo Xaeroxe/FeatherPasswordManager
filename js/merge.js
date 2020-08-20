@@ -1,18 +1,20 @@
 var mergeConflicts = [];
 
-document.getElementById('managerPassword1').addEventListener('keyup', function(e) {
-  if (e.keyCode === 13) {
-    e.preventDefault();
-    load();
-  }
-});
+document.getElementById('managerPassword1')
+    .addEventListener('keyup', function(e) {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        load();
+      }
+    });
 
-document.getElementById('managerPassword2').addEventListener('keyup', function(e) {
-  if (e.keyCode === 13) {
-    e.preventDefault();
-    load();
-  }
-});
+document.getElementById('managerPassword2')
+    .addEventListener('keyup', function(e) {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        load();
+      }
+    });
 
 function copyPasswords() {
   let nonEmptyPassword = document.getElementById('managerPassword1').value;
@@ -21,19 +23,6 @@ function copyPasswords() {
   }
   document.getElementById('managerPassword1').value = nonEmptyPassword;
   document.getElementById('managerPassword2').value = nonEmptyPassword;
-}
-
-function downloadPasswords() {
-  let passwords = {};
-  let rows = document.getElementById('passwordOutput').childNodes;
-  for(var i = 1; i < rows.length; i++) {
-    let row = rows[i];
-    let service = row.childNodes[0].childNodes[0].value;
-    let password = row.childNodes[1].childNodes[0].value;
-    passwords[service] = password;
-  }
-  let newFile = CryptoJS.AES.encrypt(JSON.stringify(passwords), document.getElementById('managerPassword1').value)
-  download(newFile, "passwords.txt", "text/plain")
 }
 
 var matches = 0;
@@ -50,129 +39,181 @@ function load() {
   let managerPassword1 = document.getElementById('managerPassword1').value;
   let fileEntry2 = document.getElementById('passwordFile2').files;
   let managerPassword2 = document.getElementById('managerPassword2').value;
-  if(fileEntry1.length === 1 && fileEntry2.length === 1) {
+  if (fileEntry1.length === 1 && fileEntry2.length === 1) {
     let reader1 = new FileReader();
     let reader2 = new FileReader();
     var firstLoaded = null;
     mergeConflicts = [];
     let processFile = function(fileNumber, fileInput) {
-      if(firstLoaded === null) {
+      if (firstLoaded === null) {
         firstLoaded = fileInput;
-      }
-      else {
+      } else if (fileInput) {
         let isOne = fileNumber === 1;
         let keys = new Set(Object.keys(fileInput));
         let firstLoadedKeys = Object.keys(firstLoaded);
-        for(var i = 0; i < firstLoadedKeys.length; i++) {
+        for (var i = 0; i < firstLoadedKeys.length; i++) {
           keys.add(firstLoadedKeys[i]);
         }
         keys = Array.from(keys.values());
-        keys.sort();
+        keys.sort(function(a, b) {
+          return a.localeCompare(b);
+        });
         document.getElementById('passwordOutput').textContent = '';
-        for(let i = 0; i < keys.length; i++) {
-          if(typeof fileInput[keys[i]] === 'undefined') {
+        for (let i = 0; i < keys.length; i++) {
+          if (typeof fileInput[keys[i]] === 'undefined') {
             let entry = normalizePasswordEntry(firstLoaded[keys[i]]);
-            addPassword(keys[i], entry.password, entry.creationDate || new Date().toISOString());
-            if(isOne) {
+            addPassword(
+                keys[i], entry.password,
+                entry.creationDate || new Date().toISOString());
+            if (isOne) {
               onlyInFile2++;
             } else {
               onlyInFile1++;
             }
-          }
-          else if(typeof firstLoaded[keys[i]] === 'undefined') {
+          } else if (typeof firstLoaded[keys[i]] === 'undefined') {
             let entry = normalizePasswordEntry(fileInput[keys[i]]);
-            addPassword(keys[i], entry.password, entry.creationDate || new Date().toISOString());
-            if(isOne) {
+            addPassword(
+                keys[i], entry.password,
+                entry.creationDate || new Date().toISOString());
+            if (isOne) {
               onlyInFile1++;
             } else {
               onlyInFile2++;
             }
-          }
-          else {
+          } else {
             let entry = normalizePasswordEntry(fileInput[keys[i]]);
             let firstLoadedEntry = normalizePasswordEntry(firstLoaded[keys[i]]);
-            if(entry.password !== firstLoadedEntry.password) {
+            if (entry.password !== firstLoadedEntry.password) {
               mergeConflicts.push({
                 service: keys[i],
                 entry1: entry,
                 entry2: firstLoadedEntry,
               });
               conflictCount++;
-            }
-            else {
+            } else {
               addPassword(keys[i], entry.password, entry.creationDate);
               matches++;
             }
           }
         }
         setClearTimeout(document.getElementById('fileLifetime').value);
-        if(mergeConflicts.length === 0) {
-          document.getElementById('file1OnlyCount').innerText = onlyInFile1.toString();
-          document.getElementById('file2OnlyCount').innerText = onlyInFile2.toString();
-          document.getElementById('matchedCount').innerText = matches.toString();
-          document.getElementById('conflictCount').innerText = conflictCount.toString();
+        if (mergeConflicts.length === 0) {
+          document.getElementById('file1OnlyCount').innerText =
+              onlyInFile1.toString();
+          document.getElementById('file2OnlyCount').innerText =
+              onlyInFile2.toString();
+          document.getElementById('matchedCount').innerText =
+              matches.toString();
+          document.getElementById('conflictCount').innerText =
+              conflictCount.toString();
           $('.toast-Success').toast('show');
-        }
-        else {
+        } else {
           promptConflictResolve();
         }
       }
     };
     reader1.onload = function(e) {
+      let fileInput = null;
       try {
-          fileInput = JSON.parse(CryptoJS.AES.decrypt(e.target.result, managerPassword1).toString(CryptoJS.enc.Utf8));
+        let version3Payload =
+            JSON.parse(e.target.result).FeatherPasswordFileVersion3;
+        try {
+          if (version3Payload) {
+            fileInput =
+                JSON.parse(sjcl.decrypt(managerPassword1, version3Payload))
+          } else {
+            $('.toast-Error-Wrong-Password-Or-File-1').toast('show');
+          }
+        } catch (err) {
+          $('.toast-Error-Wrong-Password-1').toast('show');
+        }
+      } catch (err) {
+        try {
+          fileInput =
+              JSON.parse(CryptoJS.AES.decrypt(e.target.result, managerPassword1)
+                             .toString(CryptoJS.enc.Utf8));
+        } catch (err) {
+          $('.toast-Error-Wrong-Password-Or-File-1').toast('show');
+        }
       }
-      catch(err) {
-        $('.toast-Error-Wrong-Password').toast('show');
+      if (fileInput) {
+        processFile(1, fileInput);
       }
-      processFile(1, fileInput);
     };
     reader2.onload = function(e) {
+      let fileInput = null;
       try {
-          fileInput = JSON.parse(CryptoJS.AES.decrypt(e.target.result, managerPassword2).toString(CryptoJS.enc.Utf8));
+        let version3Payload =
+            JSON.parse(e.target.result).FeatherPasswordFileVersion3;
+        try {
+          if (version3Payload) {
+            fileInput =
+                JSON.parse(sjcl.decrypt(managerPassword2, version3Payload))
+          } else {
+            $('.toast-Error-Wrong-Password-Or-File-2').toast('show');
+          }
+        } catch (err) {
+          $('.toast-Error-Wrong-Password-2').toast('show');
+        }
+      } catch (err) {
+        try {
+          fileInput =
+              JSON.parse(CryptoJS.AES.decrypt(e.target.result, managerPassword2)
+                             .toString(CryptoJS.enc.Utf8));
+        } catch (err) {
+          $('.toast-Error-Wrong-Password-Or-File-2').toast('show');
+        }
       }
-      catch(err) {
-        $('.toast-Error-Wrong-Password').toast('show');
+      if (fileInput) {
+        processFile(2, fileInput);
       }
-      processFile(2, fileInput);
     };
     reader1.readAsText(fileEntry1[0]);
     reader2.readAsText(fileEntry2[0]);
-  }
-  else {
-    alert("Can't proceed without both files.")
+  } else {
+    alert('Can\'t proceed without both files.')
   }
 }
 
 function promptConflictResolve() {
-  if(mergeConflicts.length > 0) {
-    document.getElementById('mergeConflictServiceName').innerText = mergeConflicts[0].service;
+  if (mergeConflicts.length > 0) {
+    document.getElementById('mergeConflictServiceName').innerText =
+        mergeConflicts[0].service;
     let entry1 = mergeConflicts[0].entry1;
     let entry2 = mergeConflicts[0].entry2;
     let prettyPrintDate = function(dateString) {
-        if(dateString === null) {
-          return 'Creation Date unknown';
-        }
-        return new Date(dateString).toLocaleString();
-    }
-    document.getElementById('mergeConflictOption1').innerHTML = jQuery('<div/>').text(entry1.password).html() + "<br>" + jQuery('<div/>').text(prettyPrintDate(entry1.creationDate)).html();
-    document.getElementById('mergeConflictOption2').innerHTML = jQuery('<div/>').text(entry2.password).html() + "<br>" + jQuery('<div/>').text(prettyPrintDate(entry2.creationDate)).html();
+      if (dateString === null) {
+        return 'Creation Date unknown';
+      }
+      return new Date(dateString).toLocaleString();
+    };
+    document.getElementById('mergeConflictOption1').innerHTML =
+        jQuery('<div/>').text(entry1.password).html() + '<br>' +
+        jQuery('<div/>').text(prettyPrintDate(entry1.creationDate)).html();
+    document.getElementById('mergeConflictOption2').innerHTML =
+        jQuery('<div/>').text(entry2.password).html() + '<br>' +
+        jQuery('<div/>').text(prettyPrintDate(entry2.creationDate)).html();
     document.getElementById('mergeConflictModal').style.display = 'block';
-  }
-  else {
-    document.getElementById('file1OnlyCount').innerText = onlyInFile1.toString();
-    document.getElementById('file2OnlyCount').innerText = onlyInFile2.toString();
+  } else {
+    document.getElementById('file1OnlyCount').innerText =
+        onlyInFile1.toString();
+    document.getElementById('file2OnlyCount').innerText =
+        onlyInFile2.toString();
     document.getElementById('matchedCount').innerText = matches.toString();
-    document.getElementById('conflictCount').innerText = conflictCount.toString();
+    document.getElementById('conflictCount').innerText =
+        conflictCount.toString();
     $('.toast-Success').toast('show');
   }
 }
 
 function resolveConflict(option) {
-  if(mergeConflicts.length > 0) {
+  if (mergeConflicts.length > 0) {
     let conflict = mergeConflicts[0];
     let useOne = option === 1;
-    addPassword(conflict.service, useOne ? conflict.entry1.password : conflict.entry2.password, useOne ? conflict.entry1.creationDate : conflict.entry2.creationDate);
+    addPassword(
+        conflict.service,
+        useOne ? conflict.entry1.password : conflict.entry2.password,
+        useOne ? conflict.entry1.creationDate : conflict.entry2.creationDate);
     mergeConflicts.shift();
     document.getElementById('mergeConflictModal').style.display = 'none';
     promptConflictResolve();
@@ -180,16 +221,19 @@ function resolveConflict(option) {
 }
 
 function conflictKeepBoth() {
-  if(mergeConflicts.length > 0) {
+  if (mergeConflicts.length > 0) {
     let conflict = mergeConflicts[0];
     let intSuffix = 1;
-    let newName = conflict.service + " (" + String(intSuffix) + ")";
-    while(serviceNameInUse(newName)) {
+    let newName = conflict.service + ' (' + String(intSuffix) + ')';
+    while (serviceNameInUse(newName)) {
       intSuffix++;
-      newName = conflict.service + " (" + String(intSuffix) + ")";
+      newName = conflict.service + ' (' + String(intSuffix) + ')';
     }
-    addPassword(conflict.service, conflict.entry1.password, conflict.entry1.creationDate);
-    addPassword(newName, conflict.entry2.password, conflict.entry2.creationDate);
+    addPassword(
+        conflict.service, conflict.entry1.password,
+        conflict.entry1.creationDate);
+    addPassword(
+        newName, conflict.entry2.password, conflict.entry2.creationDate);
     mergeConflicts.shift();
     document.getElementById('mergeConflictModal').style.display = 'none';
     promptConflictResolve();
@@ -198,10 +242,10 @@ function conflictKeepBoth() {
 
 function serviceNameInUse(service) {
   let rows = document.getElementById('passwordOutput').childNodes;
-  for(var i = 1; i < rows.length; i++) {
+  for (var i = 1; i < rows.length; i++) {
     let row = rows[i];
     let oldService = row.childNodes[0].childNodes[0].value;
-    if(oldService === service) {
+    if (oldService === service) {
       return true;
     }
   }

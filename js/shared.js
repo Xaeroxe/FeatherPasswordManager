@@ -1,7 +1,7 @@
 var timeoutID = null;
 
 function setClearTimeout(minutes) {
-  if(typeof timeoutID === 'number') {
+  if (typeof timeoutID === 'number') {
     clearTimeout(timeoutID);
   }
   timeoutID = setTimeout(function() {
@@ -38,11 +38,13 @@ function addHeaders() {
 
 function addPassword(service, password, creationDate) {
   let rows = document.getElementById('passwordOutput').childNodes;
-  for(var i = 1; i < rows.length; i++) {
+  for (var i = 1; i < rows.length; i++) {
     let row = rows[i];
     let oldService = row.childNodes[0].childNodes[0].value;
-    if(oldService === service) {
-      if(confirm(service + " already has a password set, press OK to replace the password for it, otherwise press Cancel.")) {
+    if (oldService === service) {
+      if (confirm(
+              service +
+              ' already has a password set, press OK to replace the password for it, otherwise press Cancel.')) {
         row.childNodes[1].childNodes[0].value = password;
         row.childNodes[2].childNodes[0].innerText = creationDate;
       }
@@ -77,17 +79,18 @@ function addPassword(service, password, creationDate) {
   creationDateCell.setAttribute('hidden', true);
   creationDateCell.appendChild(creationDateValue);
   row.appendChild(creationDateCell);
-  let showButtonCell= document.createElement('td');
+  let showButtonCell = document.createElement('td');
   let showButton = document.createElement('button');
   showButton.type = 'button';
   showButton.className = 'btn btn-outline-primary';
   showButton.innerHTML = '<img src="img/eye.svg" alt="">';
   showButton.onclick = function() {
-    let passField = this.parentElement.parentElement.childNodes[1].childNodes[0];
+    let passField =
+        this.parentElement.parentElement.childNodes[1].childNodes[0];
     if (passField.type === 'text') {
-	passField.type = 'password';
+      passField.type = 'password';
     } else {
-        passField.type = 'text';
+      passField.type = 'text';
     }
   };
   showButtonCell.appendChild(showButton);
@@ -98,17 +101,18 @@ function addPassword(service, password, creationDate) {
   copyButton.className = 'btn btn-outline-primary';
   copyButton.innerHTML = '<img src="img/clipboard.svg" alt="">';
   copyButton.onclick = function() {
-    let passField = this.parentElement.parentElement.childNodes[1].childNodes[0];
+    let passField =
+        this.parentElement.parentElement.childNodes[1].childNodes[0];
     let switched = false;
-    if (passField.type === 'password' ) {
-        passField.type = 'text';
-        switched = true;
+    if (passField.type === 'password') {
+      passField.type = 'text';
+      switched = true;
     }
     passField.focus();
     passField.select();
     document.execCommand('copy');
-    if(switched) {
-        passField.type = 'password';
+    if (switched) {
+      passField.type = 'password';
     }
     $('.toast-copy').toast('show');
   };
@@ -123,7 +127,7 @@ function addPassword(service, password, creationDate) {
     let deletedRow = this.parentElement.parentElement;
     deletedRow.parentElement.removeChild(deletedRow);
     $('.toast-delete').toast('show');
-    if(document.getElementById('passwordOutput').childNodes.length == 1) {
+    if (document.getElementById('passwordOutput').childNodes.length == 1) {
       document.getElementById('passwordOutput').textContent = '';
       document.getElementById('downloadButton').setAttribute('hidden', '');
       downloadButton.className = 'btn btn-outline-success';
@@ -134,33 +138,32 @@ function addPassword(service, password, creationDate) {
   document.getElementById('passwordOutput').appendChild(row);
 }
 
-function downloadPasswords() {
+function downloadPasswords(masterPassword) {
   let passwords = {};
   let rows = document.getElementById('passwordOutput').childNodes;
-  for(var i = 1; i < rows.length; i++) {
+  for (var i = 1; i < rows.length; i++) {
     let row = rows[i];
     let service = row.childNodes[0].childNodes[0].value;
     let password = row.childNodes[1].childNodes[0].value;
     let creationDate = row.childNodes[2].childNodes[0].innerText;
-    passwords[service] = {
-      password: password,
-      creationDate: creationDate
-    };
+    passwords[service] = {password: password, creationDate: creationDate};
   }
-  let newFile = CryptoJS.AES.encrypt(JSON.stringify(passwords), document.getElementById('managerPassword').value)
-  download(newFile, "passwords.txt", "text/plain")
+  let encryptedPayload = sjcl.encrypt(masterPassword, JSON.stringify(passwords))
+  let passwordsFile = JSON.stringify({
+    FeatherPasswordFileVersion3: encryptedPayload,
+  });
+  download(passwordsFile, 'passwords.feather', 'text/plain')
 }
 
 
 function normalizePasswordEntry(input) {
-  if(typeof input === 'string') {
+  if (typeof input === 'string') {
     // Old format entry
     return {
       password: input,
       creationDate: null,
     };
-  }
-  else {
+  } else {
     // New format entry
     return input;
   }
