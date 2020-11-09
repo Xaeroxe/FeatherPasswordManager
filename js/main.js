@@ -40,6 +40,7 @@ function load() {
         keys.sort(function(a, b) {
           return a.localeCompare(b);
         });
+        document.getElementById("searchInput").value = '';
         document.getElementById('passwordOutput').textContent = '';
         for (let i = 0; i < keys.length; i++) {
           let entry = normalizePasswordEntry(fileInput[keys[i]]);
