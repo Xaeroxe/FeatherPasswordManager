@@ -2,7 +2,7 @@ var mergeConflicts = [];
 
 document.getElementById('managerPassword1')
     .addEventListener('keyup', function(e) {
-      if (e.keyCode === 13) {
+      if (e.keyCode === 13 || e.code === 13) {
         e.preventDefault();
         load();
       }
@@ -10,7 +10,7 @@ document.getElementById('managerPassword1')
 
 document.getElementById('managerPassword2')
     .addEventListener('keyup', function(e) {
-      if (e.keyCode === 13) {
+      if (e.keyCode === 13 || e.code === 13) {
         e.preventDefault();
         load();
       }
@@ -29,12 +29,16 @@ var matches = 0;
 var onlyInFile1 = 0;
 var onlyInFile2 = 0;
 var conflictCount = 0;
+var resolvedInFavorOf1 = 0;
+var resolvedInFavorOf2 = 0;
 
 function load() {
   matches = 0;
   onlyInFile1 = 0;
   onlyInFile2 = 0;
   conflictCount = 0;
+  resolvedInFavorOf1 = 0;
+  resolvedInFavorOf2 = 0;
   let fileEntry1 = document.getElementById('passwordFile1').files;
   let managerPassword1 = document.getElementById('managerPassword1').value;
   let fileEntry2 = document.getElementById('passwordFile2').files;
@@ -86,8 +90,8 @@ function load() {
             if (entry.password !== firstLoadedEntry.password) {
               mergeConflicts.push({
                 service: keys[i],
-                entry1: entry,
-                entry2: firstLoadedEntry,
+                entry1: isOne ? entry : firstLoadedEntry,
+                entry2: isOne ? firstLoadedEntry : entry,
               });
               conflictCount++;
             } else {
@@ -106,6 +110,10 @@ function load() {
               matches.toString();
           document.getElementById('conflictCount').innerText =
               conflictCount.toString();
+          document.getElementById('resolvedInFavorOf1').innerText =
+              resolvedInFavorOf1.toString();
+          document.getElementById('resolvedInFavorOf2').innerText =
+              resolvedInFavorOf2.toString();
           $('.toast-Success').toast('show');
         } else {
           promptConflictResolve();
@@ -202,6 +210,10 @@ function promptConflictResolve() {
     document.getElementById('matchedCount').innerText = matches.toString();
     document.getElementById('conflictCount').innerText =
         conflictCount.toString();
+    document.getElementById('resolvedInFavorOf1').innerText =
+        resolvedInFavorOf1.toString();
+    document.getElementById('resolvedInFavorOf2').innerText =
+        resolvedInFavorOf2.toString();
     $('.toast-Success').toast('show');
   }
 }
@@ -214,6 +226,11 @@ function resolveConflict(option) {
         conflict.service,
         useOne ? conflict.entry1.password : conflict.entry2.password,
         useOne ? conflict.entry1.creationDate : conflict.entry2.creationDate);
+    if (useOne) {
+      resolvedInFavorOf1++;
+    } else {
+      resolvedInFavorOf2++;
+    }
     mergeConflicts.shift();
     document.getElementById('mergeConflictModal').style.display = 'none';
     promptConflictResolve();
@@ -234,6 +251,8 @@ function conflictKeepBoth() {
         conflict.entry1.creationDate);
     addPassword(
         newName, conflict.entry2.password, conflict.entry2.creationDate);
+    resolvedInFavorOf1++;
+    resolvedInFavorOf2++;
     mergeConflicts.shift();
     document.getElementById('mergeConflictModal').style.display = 'none';
     promptConflictResolve();

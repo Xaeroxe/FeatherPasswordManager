@@ -83,7 +83,7 @@ function addPassword(service, password, creationDate) {
   let showButton = document.createElement('button');
   showButton.type = 'button';
   showButton.className = 'btn btn-outline-primary';
-  showButton.innerHTML = '<img src="img/eye.svg" alt="">';
+  showButton.innerHTML = '<img src="img/eye.svg" alt="Show">';
   showButton.onclick = function() {
     let passField =
         this.parentElement.parentElement.childNodes[1].childNodes[0];
@@ -99,7 +99,7 @@ function addPassword(service, password, creationDate) {
   let copyButton = document.createElement('button');
   copyButton.type = 'button';
   copyButton.className = 'btn btn-outline-primary';
-  copyButton.innerHTML = '<img src="img/clipboard.svg" alt="">';
+  copyButton.innerHTML = '<img src="img/clipboard.svg" alt="Copy">';
   copyButton.onclick = function() {
     let passField =
         this.parentElement.parentElement.childNodes[1].childNodes[0];
@@ -121,7 +121,7 @@ function addPassword(service, password, creationDate) {
   let deleteButtonCell = document.createElement('td');
   let deleteButton = document.createElement('button');
   deleteButton.type = 'button';
-  deleteButton.innerHTML = '<img src="img/x-circle.svg" alt="">';
+  deleteButton.innerHTML = '<img src="img/x-circle.svg" alt="Delete">';
   deleteButton.className = 'btn btn-outline-danger';
   deleteButton.onclick = function() {
     let deletedRow = this.parentElement.parentElement;

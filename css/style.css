@@ -25,12 +25,13 @@ span.toast-value {
   color: black;
   margin: 0;
 }
-input[type=file]{
+input[type=file] {
   margin: 0em;
   margin: auto;
   border:auto;
   padding: auto;
 }
+
 input[type=text], input[type=password], input[type=number] {
   background-color: rgb(0, 0, 0);
   color: #eee;
@@ -47,7 +48,13 @@ input[type=button] {
   font-size: 1.25rem;
 }
 
-.btn{color: white}
+.btn {
+  color: white;
+}
+
+td {
+  padding-right: 0.8rem;
+}
 
 
 
