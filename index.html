@@ -35,6 +35,18 @@
 
     <button type="button" class="btn btn-outline-info" value="Load file..." onclick="load();" id="loadButton">Load file <img src="img/upload.svg" alt=""> </button>
     <span>Keep file loaded for </span><input type="number" id="fileLifetime" value="15"/><span> minutes.</span>
+    <br/>
+    <input
+      type="text"
+      id="searchInput"
+      class="form-control"
+      size="30"
+      placeholder="Search for a service name"
+      onchange="onSearch();"
+      onkeypress="this.onchange();"
+      onpaste="this.onchange();"
+      oninput="this.onchange();"
+    >
     <hr id="hrHidden" hidden>
     <table id="passwordOutput"></table>
     <button id="downloadButton" class="btn btn-outline-success" hidden type="button" value="Download current file" onclick="downloadPasswords(document.getElementById('managerPassword').value);">Download current file <img src="img/download.svg" alt=""></button>
@@ -42,7 +54,6 @@
     <br>
     <h5>Add new password</h5>
     <hr>
-
     <input type="text" id="serviceInput" class="form-control" size="30" autocomplete="off" placeholder="Service Name - ie: Skype, Outlook, Facebook etc.. ">
     <p id="newPasswordOutput" class="ubuntu"></p>
     <span>Length:<b id="lengthOutput"> </b> </span>

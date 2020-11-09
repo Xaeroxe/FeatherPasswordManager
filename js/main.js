@@ -102,6 +102,20 @@ function genPassword() {
   document.getElementById('newPasswordOutput').textContent = password;
 }
 
+function onSearch() {
+  let searchValue = document.getElementById("searchInput").value;
+  let rows = document.getElementById('passwordOutput').childNodes;
+  for (var i = 1; i < rows.length; i++) {
+    let row = rows[i];
+    let service = row.childNodes[0].childNodes[0].value;
+    if (service.includes(searchValue)) {
+      row.removeAttribute("hidden");
+    } else {
+      row.setAttribute("hidden", null);
+    }
+  }
+}
+
 const lowerRange = [97, 122];
 const upperRange = [65, 90];
 const digitsRange = [48, 57];
