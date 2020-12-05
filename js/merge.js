@@ -261,9 +261,9 @@ function conflictKeepBoth() {
 
 function serviceNameInUse(service) {
   let rows = document.getElementById('passwordOutput').childNodes;
-  for (var i = 1; i < rows.length; i++) {
-    let row = rows[i];
-    let oldService = row.childNodes[0].childNodes[0].value;
+  for (var i = 0; i < rows.length; i++) {
+    let td = rows[i].childNodes[0];
+    let oldService = td.childNodes[1].value;
     if (oldService === service) {
       return true;
     }

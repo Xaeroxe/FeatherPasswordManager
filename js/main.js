@@ -106,10 +106,12 @@ function genPassword() {
 function onSearch() {
   let searchValue = document.getElementById("searchInput").value;
   let rows = document.getElementById('passwordOutput').childNodes;
-  for (var i = 1; i < rows.length; i++) {
+  let lowerSearch = searchValue.toLowerCase();
+  for (var i = 0; i < rows.length; i++) {
     let row = rows[i];
-    let service = row.childNodes[0].childNodes[0].value;
-    if (service.includes(searchValue)) {
+    let td = row.childNodes[0];
+    let service = td.childNodes[1].value;
+    if (service.toLowerCase().includes(lowerSearch)) {
       row.removeAttribute("hidden");
     } else {
       row.setAttribute("hidden", null);

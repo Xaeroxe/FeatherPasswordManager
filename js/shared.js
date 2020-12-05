@@ -9,100 +9,66 @@ function setClearTimeout(minutes) {
   }, minutes * 60000);
 }
 
-function addHeaders() {
-  document.getElementById('downloadButton').removeAttribute('hidden');
-  document.getElementById('hrHidden').removeAttribute('hidden');
-  let passwordOutput = document.getElementById('passwordOutput');
-  passwordOutput.textContent = '';
-  let headers = document.createElement('tr');
-  let serviceHeaderCell = document.createElement('th');
-  let passwordHeaderCell = document.createElement('th');
-  let creationDateHeaderCell = document.createElement('th');
-  let showHeaderCell = document.createElement('th');
-  let copyHeaderCell = document.createElement('th');
-  let deleteHeaderCell = document.createElement('th');
-  serviceHeaderCell.textContent = 'Service';
-  passwordHeaderCell.textContent = 'Password';
-  creationDateHeaderCell.setAttribute('hidden', true);
-  showHeaderCell.textContent = 'Show';
-  copyHeaderCell.textContent = 'Copy';
-  deleteHeaderCell.textContent = 'Remove';
-  headers.appendChild(serviceHeaderCell);
-  headers.appendChild(passwordHeaderCell);
-  headers.appendChild(creationDateHeaderCell);
-  headers.appendChild(showHeaderCell);
-  headers.appendChild(copyHeaderCell);
-  headers.appendChild(deleteHeaderCell);
-  passwordOutput.appendChild(headers);
-}
-
 function addPassword(service, password, creationDate) {
   let rows = document.getElementById('passwordOutput').childNodes;
-  for (var i = 1; i < rows.length; i++) {
-    let row = rows[i];
-    let oldService = row.childNodes[0].childNodes[0].value;
+  for (var i = 0; i < rows.length; i++) {
+    let td = rows[i].childNodes[0];
+    let oldService = td.childNodes[1].value;
     if (oldService === service) {
       if (confirm(
               service +
               ' already has a password set, press OK to replace the password for it, otherwise press Cancel.')) {
-        row.childNodes[1].childNodes[0].value = password;
-        row.childNodes[2].childNodes[0].innerText = creationDate;
+        td.childNodes[2].value = password;
+        td.childNodes[3].innerText = creationDate;
       }
       return;
     }
   }
-  if (document.getElementById('passwordOutput').textContent === '') {
-    addHeaders();
-  }
   let row = document.createElement('tr');
-  let labelCell = document.createElement('td');
+  let cell = document.createElement('td');
+  cell.appendChild(document.createElement("hr"));
   let label = document.createElement('input');
   label.value = service;
   label.type = 'text';
   label.size = 30;
   label.setAttribute('autocomplete', 'off');
   label.className = 'form-control';
-  labelCell.appendChild(label);
-  row.appendChild(labelCell);
-  let passwordCell = document.createElement('td');
+  cell.appendChild(label);
+  
   let passwordValue = document.createElement('input');
   passwordValue.value = password;
   passwordValue.type = 'password';
   passwordValue.size = 50;
   passwordValue.setAttribute('autocomplete', 'off');
-  passwordCell.appendChild(passwordValue);
+  cell.appendChild(passwordValue);
   passwordValue.className = 'form-control ubuntu';
-  row.appendChild(passwordCell);
-  let creationDateCell = document.createElement('td');
   let creationDateValue = document.createElement('p');
   creationDateValue.innerText = creationDate;
-  creationDateCell.setAttribute('hidden', true);
-  creationDateCell.appendChild(creationDateValue);
-  row.appendChild(creationDateCell);
-  let showButtonCell = document.createElement('td');
+  creationDateValue.setAttribute('hidden', true);
+  cell.appendChild(creationDateValue);
+  let buttons = document.createElement("div");
+  buttons.setAttribute("style", "text-align: center;")
   let showButton = document.createElement('button');
   showButton.type = 'button';
   showButton.className = 'btn btn-outline-primary';
   showButton.innerHTML = '<img src="img/eye.svg" alt="Show">';
   showButton.onclick = function() {
     let passField =
-        this.parentElement.parentElement.childNodes[1].childNodes[0];
+        this.parentElement.parentElement.childNodes[2];
     if (passField.type === 'text') {
       passField.type = 'password';
     } else {
       passField.type = 'text';
     }
   };
-  showButtonCell.appendChild(showButton);
-  row.appendChild(showButtonCell);
-  let copyButtonCell = document.createElement('td');
+  buttons.appendChild(showButton);
   let copyButton = document.createElement('button');
   copyButton.type = 'button';
   copyButton.className = 'btn btn-outline-primary';
   copyButton.innerHTML = '<img src="img/clipboard.svg" alt="Copy">';
   copyButton.onclick = function() {
     let passField =
-        this.parentElement.parentElement.childNodes[1].childNodes[0];
+        this.parentElement.parentElement.childNodes[2];
     let switched = false;
     if (passField.type === 'password') {
       passField.type = 'text';
@@ -116,36 +82,35 @@ function addPassword(service, password, creationDate) {
     }
     $('.toast-copy').toast('show');
   };
-  copyButtonCell.appendChild(copyButton);
-  row.appendChild(copyButtonCell);
-  let deleteButtonCell = document.createElement('td');
+  buttons.appendChild(copyButton);
   let deleteButton = document.createElement('button');
   deleteButton.type = 'button';
   deleteButton.innerHTML = '<img src="img/x-circle.svg" alt="Delete">';
   deleteButton.className = 'btn btn-outline-danger';
   deleteButton.onclick = function() {
-    let deletedRow = this.parentElement.parentElement;
+    let deletedRow = this.parentElement.parentElement.parentElement;
     deletedRow.parentElement.removeChild(deletedRow);
     $('.toast-delete').toast('show');
-    if (document.getElementById('passwordOutput').childNodes.length == 1) {
+    if (document.getElementById('passwordOutput').childNodes.length == 0) {
       document.getElementById('passwordOutput').textContent = '';
-      document.getElementById('downloadButton').setAttribute('hidden', '');
-      downloadButton.className = 'btn btn-outline-success';
+      document.getElementById('downloadButton').setAttribute('hidden', null);
     }
   };
-  deleteButtonCell.appendChild(deleteButton);
-  row.appendChild(deleteButtonCell);
+  buttons.appendChild(deleteButton);
+  cell.appendChild(buttons);
+  row.appendChild(cell);
   document.getElementById('passwordOutput').appendChild(row);
+  document.getElementById("downloadButton").removeAttribute("hidden");
 }
 
 function downloadPasswords(masterPassword) {
   let passwords = {};
   let rows = document.getElementById('passwordOutput').childNodes;
-  for (var i = 1; i < rows.length; i++) {
-    let row = rows[i];
-    let service = row.childNodes[0].childNodes[0].value;
-    let password = row.childNodes[1].childNodes[0].value;
-    let creationDate = row.childNodes[2].childNodes[0].innerText;
+  for (var i = 0; i < rows.length; i++) {
+    let td = rows[i].childNodes[0];
+    let service = td.childNodes[1].value;
+    let password = td.childNodes[2].value;
+    let creationDate = td.childNodes[3].innerText;
     passwords[service] = {password: password, creationDate: creationDate};
   }
   let encryptedPayload = sjcl.encrypt(masterPassword, JSON.stringify(passwords))

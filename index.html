@@ -31,10 +31,11 @@
     <hr>
     <input type="file" class="form-control-file flex-nowrap" id="passwordFile" autocomplete="off">
 
-    <input type="password" id="managerPassword" class="form-control" size="40" autocomplete="off" placeholder="Manager Password - Either set when downloading or opening the file containing the password.">
+    <input type="password" id="managerPassword" class="form-control" size="40" autocomplete="off" placeholder="Manager Password">
 
+    <span>Keep file loaded for </span><input type="number" id="fileLifetime" value="15" style ="width: 3em";/><span> minutes.</span><br/>
     <button type="button" class="btn btn-outline-info" value="Load file..." onclick="load();" id="loadButton">Load file <img src="img/upload.svg" alt=""> </button>
-    <span>Keep file loaded for </span><input type="number" id="fileLifetime" value="15"/><span> minutes.</span>
+    
     <br/>
     <input
       type="text"
@@ -54,7 +55,7 @@
     <br>
     <h5>Add new password</h5>
     <hr>
-    <input type="text" id="serviceInput" class="form-control" size="30" autocomplete="off" placeholder="Service Name - ie: Skype, Outlook, Facebook etc.. ">
+    <input type="text" id="serviceInput" class="form-control" size="30" autocomplete="off" placeholder="Service Name">
     <p id="newPasswordOutput" class="ubuntu"></p>
     <span>Length:<b id="lengthOutput"> </b> </span>
     <input id="length" type="range" class="custom-range" min="8" max="100" value="24">
@@ -62,9 +63,11 @@
 
     <input id="capsCheckbox" type="checkbox" checked>
     <span>Include uppercase letters</span>
+    <br />
 
     <input id="digitsCheckbox" type="checkbox" checked>
     <span>Include digits</span>
+    <br />
 
     <input id="specialCharactersCheckbox" type="checkbox">
     <span>Include special characters</span>
