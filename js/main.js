@@ -17,6 +17,7 @@ document.getElementById("searchInput")
     });
 
 function load() {
+  fileInput = null;
   let fileEntry = document.getElementById('passwordFile').files;
   let managerPassword = document.getElementById('managerPassword').value;
   if (fileEntry.length === 1) {
