@@ -7,7 +7,7 @@ function setClearTimeout(milliseconds) {
   sessionStorage.setItem('self-destruct-time', new Date().getTime() + milliseconds);
   timeoutID = setTimeout(function() {
     unload();
-  }, milliseconds);
+  }, Math.min(Math.max(0, milliseconds), 4294967296));
 }
 
 function addPassword(service, password, creationDate) {
