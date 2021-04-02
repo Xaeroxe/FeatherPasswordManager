@@ -255,6 +255,7 @@ try {
   document.getElementById('managerPassword').value = sessionStorage.getItem('managerPassword');
   document.getElementById('searchInput').value = sessionStorage.getItem('searchInput');
   loadPasswordObject(getPasswordsFromSession());
+  onSearch();
 } catch(err) {
   // Many things can go wrong with this, none of them are really worth worrying about.
 }

@@ -5,8 +5,7 @@ function setClearTimeout(minutes) {
     clearTimeout(timeoutID);
   }
   timeoutID = setTimeout(function() {
-    sessionStorage.clear();
-    document.location.reload();
+    unload();
   }, minutes * 60000);
 }
 
@@ -161,4 +160,9 @@ function normalizePasswordEntry(input) {
     // New format entry
     return input;
   }
+}
+
+function unload() {
+  sessionStorage.clear();
+  document.location.reload();
 }
