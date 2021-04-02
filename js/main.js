@@ -50,9 +50,9 @@ function load() {
         loadPasswordObject(fileInput);
         storePasswordsInSession();
         document.getElementById('passwordCount').innerText =
-            keys.length.toString();
+            Object.keys(fileInput).length.toString();
         $('.toast-Passwords-Loaded').toast('show');
-        setClearTimeout(document.getElementById('fileLifetime').value);
+        setClearTimeout(document.getElementById('fileLifetime').value * 60000);
         fileInput = null;
       }
     };
@@ -74,7 +74,7 @@ function getRandomInt(min, max) {
 
 function genPassword() {
   if (timeoutID !== null) {
-    setClearTimeout(document.getElementById('fileLifetime').value);
+    setClearTimeout(document.getElementById('fileLifetime').value * 60000);
   }
   let meets_criteria = false;
   let caps = document.getElementById('capsCheckbox').checked;
@@ -256,6 +256,7 @@ try {
   document.getElementById('searchInput').value = sessionStorage.getItem('searchInput');
   loadPasswordObject(getPasswordsFromSession());
   onSearch();
+  reinstateDetonateTime();
 } catch(err) {
   // Many things can go wrong with this, none of them are really worth worrying about.
 }

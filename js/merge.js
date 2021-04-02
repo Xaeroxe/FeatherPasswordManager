@@ -112,7 +112,7 @@ function load() {
             }
           }
         }
-        setClearTimeout(document.getElementById('fileLifetime').value);
+        setClearTimeout(document.getElementById('fileLifetime').value * 60000);
         if (mergeConflicts.length === 0) {
           storePasswordsInSession();
           document.getElementById('file1OnlyCount').innerText =
@@ -290,6 +290,7 @@ try {
   document.getElementById('managerPassword1').value = sessionStorage.getItem('managerPassword1');
   document.getElementById('managerPassword2').value = sessionStorage.getItem('managerPassword2');
   loadPasswordObject(getPasswordsFromSession());
+  reinstateDetonateTime();
 } catch(err) {
   // Many things can go wrong with this, none of them are really worth worrying about.
 }

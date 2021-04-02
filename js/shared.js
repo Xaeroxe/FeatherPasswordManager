@@ -1,12 +1,13 @@
 var timeoutID = null;
 
-function setClearTimeout(minutes) {
+function setClearTimeout(milliseconds) {
   if (typeof timeoutID === 'number') {
     clearTimeout(timeoutID);
   }
+  sessionStorage.setItem('self-destruct-time', new Date().getTime() + milliseconds);
   timeoutID = setTimeout(function() {
     unload();
-  }, minutes * 60000);
+  }, milliseconds);
 }
 
 function addPassword(service, password, creationDate) {
@@ -166,4 +167,8 @@ function normalizePasswordEntry(input) {
 function unload() {
   sessionStorage.clear();
   document.location.reload();
+}
+
+function reinstateDetonateTime() {
+  setClearTimeout(sessionStorage.getItem('self-destruct-time') - new Date().getTime());
 }
