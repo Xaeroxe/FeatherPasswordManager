@@ -5,6 +5,7 @@ function setClearTimeout(minutes) {
     clearTimeout(timeoutID);
   }
   timeoutID = setTimeout(function() {
+    sessionStorage.clear();
     document.location.reload();
   }, minutes * 60000);
 }
@@ -103,7 +104,21 @@ function addPassword(service, password, creationDate) {
   document.getElementById("downloadButton").removeAttribute("hidden");
 }
 
-function downloadPasswords(masterPassword) {
+function loadPasswordObject(input) {
+  let keys = Object.keys(input);
+  keys.sort(function(a, b) {
+    return a.localeCompare(b);
+  });
+  for (let i = 0; i < keys.length; i++) {
+    let entry = normalizePasswordEntry(input[keys[i]]);
+    if (entry.creationDate === null) {
+      entry.creationDate = new Date().toISOString();
+    }
+    addPassword(keys[i], entry.password, entry.creationDate);
+  }
+}
+
+function makePasswordObject() {
   let passwords = {};
   let rows = document.getElementById('passwordOutput').childNodes;
   for (var i = 0; i < rows.length; i++) {
@@ -113,6 +128,20 @@ function downloadPasswords(masterPassword) {
     let creationDate = td.childNodes[3].innerText;
     passwords[service] = {password: password, creationDate: creationDate};
   }
+  return passwords;
+}
+
+function storePasswordsInSession() {
+  let passwords = makePasswordObject();
+  sessionStorage.setItem('passwords', JSON.stringify(passwords));
+}
+
+function getPasswordsFromSession() {
+  return JSON.parse(sessionStorage.getItem('passwords'));
+}
+
+function downloadPasswords(masterPassword) {
+  let passwords = makePasswordObject();
   let encryptedPayload = sjcl.encrypt(masterPassword, JSON.stringify(passwords))
   let passwordsFile = JSON.stringify({
     FeatherPasswordFileVersion3: encryptedPayload,

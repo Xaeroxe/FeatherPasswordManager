@@ -1,16 +1,25 @@
 document.getElementById('managerPassword')
     .addEventListener('keyup', function(e) {
-      if (e.keyCode === 13) {
+      if (e.keyCode === 13 || e.code === 13) {
         e.preventDefault();
         load();
       }
+    });
+
+document.getElementById('managerPassword')
+    .addEventListener('input', function(e) {
+      sessionStorage.setItem('managerPassword', e.target.value);
+    });
+
+document.getElementById("searchInput")
+    .addEventListener('input', function(e) {
+      sessionStorage.setItem('searchInput', e.target.value);
     });
 
 function load() {
   let fileEntry = document.getElementById('passwordFile').files;
   let managerPassword = document.getElementById('managerPassword').value;
   if (fileEntry.length === 1) {
-    let file = fileEntry[0];
     let reader = new FileReader();
     reader.onload = function(e) {
       try {
@@ -36,19 +45,10 @@ function load() {
         }
       }
       if (fileInput) {
-        let keys = Object.keys(fileInput);
-        keys.sort(function(a, b) {
-          return a.localeCompare(b);
-        });
         document.getElementById("searchInput").value = '';
         document.getElementById('passwordOutput').textContent = '';
-        for (let i = 0; i < keys.length; i++) {
-          let entry = normalizePasswordEntry(fileInput[keys[i]]);
-          if (entry.creationDate === null) {
-            entry.creationDate = new Date().toISOString();
-          }
-          addPassword(keys[i], entry.password, entry.creationDate);
-        }
+        loadPasswordObject(fileInput);
+        storePasswordsInSession();
         document.getElementById('passwordCount').innerText =
             keys.length.toString();
         $('.toast-Passwords-Loaded').toast('show');
@@ -244,7 +244,17 @@ saveButton.onclick = function() {
       document.getElementById('serviceInput').value,
       document.getElementById('newPasswordOutput').textContent,
       new Date().toISOString());
+  storePasswordsInSession();
   document.getElementById('serviceInput').value = '';
   genPassword();
   $('.toast-save').toast('show');
+}
+
+// Try and load from session storage
+try {
+  document.getElementById('managerPassword').value = sessionStorage.getItem('managerPassword');
+  document.getElementById('searchInput').value = sessionStorage.getItem('searchInput');
+  loadPasswordObject(getPasswordsFromSession());
+} catch(err) {
+  // Many things can go wrong with this, none of them are really worth worrying about.
 }

@@ -8,12 +8,22 @@ document.getElementById('managerPassword1')
       }
     });
 
+document.getElementById('managerPassword1')
+    .addEventListener('input', function(e) {
+      sessionStorage.setItem('managerPassword1', e.target.value);
+    });
+
 document.getElementById('managerPassword2')
     .addEventListener('keyup', function(e) {
       if (e.keyCode === 13 || e.code === 13) {
         e.preventDefault();
         load();
       }
+    });
+
+document.getElementById('managerPassword2')
+    .addEventListener('input', function(e) {
+      sessionStorage.setItem('managerPassword2', e.target.value);
     });
 
 function copyPasswords() {
@@ -102,6 +112,7 @@ function load() {
         }
         setClearTimeout(document.getElementById('fileLifetime').value);
         if (mergeConflicts.length === 0) {
+          storePasswordsInSession();
           document.getElementById('file1OnlyCount').innerText =
               onlyInFile1.toString();
           document.getElementById('file2OnlyCount').innerText =
@@ -203,6 +214,7 @@ function promptConflictResolve() {
         jQuery('<div/>').text(prettyPrintDate(entry2.creationDate)).html();
     document.getElementById('mergeConflictModal').style.display = 'block';
   } else {
+    storePasswordsInSession();
     document.getElementById('file1OnlyCount').innerText =
         onlyInFile1.toString();
     document.getElementById('file2OnlyCount').innerText =
@@ -269,4 +281,13 @@ function serviceNameInUse(service) {
     }
   }
   return false;
+}
+
+// Try and load from session storage
+try {
+  document.getElementById('managerPassword1').value = sessionStorage.getItem('managerPassword1');
+  document.getElementById('managerPassword2').value = sessionStorage.getItem('managerPassword2');
+  loadPasswordObject(getPasswordsFromSession());
+} catch(err) {
+  // Many things can go wrong with this, none of them are really worth worrying about.
 }
