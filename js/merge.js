@@ -33,6 +33,8 @@ function copyPasswords() {
   }
   document.getElementById('managerPassword1').value = nonEmptyPassword;
   document.getElementById('managerPassword2').value = nonEmptyPassword;
+  sessionStorage.setItem('managerPassword1', nonEmptyPassword);
+  sessionStorage.setItem('managerPassword2', nonEmptyPassword);
 }
 
 var matches = 0;

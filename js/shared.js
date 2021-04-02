@@ -104,6 +104,7 @@ function addPassword(service, password, creationDate) {
 }
 
 function loadPasswordObject(input) {
+  document.getElementById('passwordOutput').textContent = '';
   let keys = Object.keys(input);
   keys.sort(function(a, b) {
     return a.localeCompare(b);
